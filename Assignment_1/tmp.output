@@ -1,0 +1,65 @@
+Symbol Table :
+[{prime=12, a=0, loop=3, main=1, notprime=14, rem=7}]
+
+Parsed instructions :
+[[PC=1	load	[Register:0]	[Label:a]	[Register:3]
+, PC=2	addi	[Register:0]	[Immediate:2]	[Register:4]
+, PC=3	beq	[Register:4]	[Register:3]	[Label:prime]
+, PC=4	add	[Register:0]	[Register:3]	[Register:5]
+, PC=5	bgt	[Register:5]	[Register:4]	[Label:rem]
+, PC=6	beq	[Register:0]	[Register:5]	[Label:notprime]
+, PC=7	sub	[Register:5]	[Register:4]	[Register:5]
+, PC=8	beq	[Register:4]	[Register:5]	[Label:notprime]
+, PC=9	bgt	[Register:5]	[Register:4]	[Label:rem]
+, PC=10	addi	[Register:4]	[Immediate:1]	[Register:4]
+, PC=11	blt	[Register:5]	[Register:4]	[Label:loop]
+, PC=12	addi	[Register:0]	[Immediate:1]	[Register:10]
+, PC=13	end	null	null	null
+, PC=14	subi	[Register:0]	[Immediate:1]	[Register:10]
+, PC=15	end	null	null	null
+]]
+
+Register File Contents:
+
+PC	: 15
+
+x0	: 0
+x1	: 0
+x2	: 0
+x3	: 10
+x4	: 2
+x5	: 2
+x6	: 0
+x7	: 0
+x8	: 0
+x9	: 0
+x10	: -1
+x11	: 0
+x12	: 0
+x13	: 0
+x14	: 0
+x15	: 0
+x16	: 0
+x17	: 0
+x18	: 0
+x19	: 0
+x20	: 0
+x21	: 0
+x22	: 0
+x23	: 0
+x24	: 0
+x25	: 0
+x26	: 0
+x27	: 0
+x28	: 0
+x29	: 0
+x30	: 0
+x31	: 0
+
+
+
+Main Memory Contents:
+
+0		: 10
+
+
