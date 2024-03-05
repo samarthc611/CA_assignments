@@ -67,10 +67,10 @@ public class OperandFetch {
 				
 				instString = "0" + instString;
 			}
-
+			// System.out.println(instString.length());
 			String opcode = instString.substring(0, 5);
-			String immstr = instString.substring(15, 32);
-			String destImm = instString.substring(10, 32);
+			String immstr = instString.substring(15, 31);
+			String destImm = instString.substring(10, 31);
 			int immx = convertToInt(immstr);
 
 			int pc = containingProcessor.getRegisterFile().getProgramCounter();

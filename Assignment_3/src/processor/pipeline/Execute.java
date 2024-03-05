@@ -3,7 +3,7 @@ package processor.pipeline;
 import java.util.HashMap;
 
 import processor.Processor;
-
+import processor.pipeline.OF_EX_LatchType;
 public class Execute {
 	Processor containingProcessor;
 	OF_EX_LatchType OF_EX_Latch;
@@ -20,7 +20,7 @@ public class Execute {
 		this.EX_MA_Latch = eX_MA_Latch;
 		this.EX_IF_Latch = eX_IF_Latch;
 	}
-
+	
 	
 	public static HashMap<String,String> getType = new HashMap<String, String>(){{
 		put("add","r3");
@@ -98,53 +98,54 @@ public class Execute {
 		return isimm;
 		
 	}
-
-	private static void checkBranchtaken(int operand1,int operand2)
+	// String opCode = OF_EX_Latch.getOpcode();
+	private void checkBranchtaken(int operand1,int operand2)
 	{
-		if ((opcode.equals("11001") && operand1 == operand2) ||
-			(opcode.equals("11010") && operand1 != operand2) ||
-			(opcode.equals("11011") && operand1 < operand2)  ||
-			(opcode.equals("11100") && operand1 > operand2)  ||
-			(opcode.equals("11000"))){
+		if ((OF_EX_Latch.getOpcode().equals("11001") && operand1 == operand2) ||
+			(OF_EX_Latch.getOpcode().equals("11010") && operand1 != operand2) ||
+			(OF_EX_Latch.getOpcode().equals("11011") && operand1 < operand2)  ||
+			(OF_EX_Latch.getOpcode().equals("11100") && operand1 > operand2)  ||
+			(OF_EX_Latch.getOpcode().equals("11000"))){
 				isBranchTaken = true;
 			}
 				
 	}
 
-	private int ALU(int operand1,int operand2)
+	private int ALU(int operand1, int operand2)
 	{
 		int aluResult = 0;
-		if(opcode.equals("00001")){
+		// System.out.println(OF_EX_Latch.getOpcode());
+		if(OF_EX_Latch.getOpcode().equals("00001")){
 			aluResult = operand1 + operand2;
 		}
-		else if(opcode.equals("00011")){
+		else if(OF_EX_Latch.getOpcode().equals("00011")){
 			aluResult = operand1 - operand2;
 		}
-		else if(opcode.equals("00101")){
+		else if(OF_EX_Latch.getOpcode().equals("00101")){
 			aluResult = operand1 * operand2;
 		}
-		else if(opcode.equals("00111")){
+		else if(OF_EX_Latch.getOpcode().equals("00111")){
 			aluResult = operand1 / operand2;
 		}
-		else if(opcode.equals("01001")){
+		else if(OF_EX_Latch.getOpcode().equals("01001")){
 			aluResult = operand1 & operand2;
 		}
-		else if(opcode.equals("01011")){
+		else if(OF_EX_Latch.getOpcode().equals("01011")){
 			aluResult = operand1 | operand2;
 		}
-		else if(opcode.equals("01101")){
+		else if(OF_EX_Latch.getOpcode().equals("01101")){
 			aluResult = operand1 ^ operand2;
 		}
-		else if(opcode.equals("10001")){
+		else if(OF_EX_Latch.getOpcode().equals("10001")){
 			aluResult = operand1 << operand2;
 		}
-		else if(opcode.equals("10011")){
+		else if(OF_EX_Latch.getOpcode().equals("10011")){
 			aluResult = operand1 >>> operand2;
 		}
-		else if(opcode.equals("10101")){
+		else if(OF_EX_Latch.getOpcode().equals("10101")){
 			aluResult = operand1 >> operand2;
 		}
-		else if(opcode.equals("10111")){
+		else if(OF_EX_Latch.getOpcode().equals("10111")){
 			aluResult = operand1 + operand2;
 		}
 		return aluResult;

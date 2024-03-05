@@ -28,7 +28,7 @@ public class InstructionFetch {
 			if(EX_IF_Latch.isIF_enable()){
 				
 				if(EX_IF_Latch.getIsBranchTaken()){
-					containingProcessor.getRegisterFile().setProgramCounter(EX_IF_Latch.getBranchPC());
+					containingProcessor.getRegisterFile().setProgramCounter(EX_IF_Latch.getBranchPC()); // doubt
 					EX_IF_Latch.setIsBRanchTaken(false);
 				}
 				containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
@@ -37,7 +37,7 @@ public class InstructionFetch {
 			Simulator.setNoofInsts(instcount);
 			int newInstruction = containingProcessor.getMainMemory().getWord(currentPC);
 
-			IF_OF_Latch.setInstruction(newInstruction);
+			IF_OF_Latch.setInstruction(newInstruction); // pc to be stored in latch or not?
 			
 			IF_EnableLatch.setIF_enable(false);
 			IF_OF_Latch.setOF_enable(true);
