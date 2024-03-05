@@ -1,4 +1,4 @@
-#CA assignments
+# CA assignments
 For compiling and running Assignment 3:
 1. Clone the repo
 2. change directory to Assignment_3
