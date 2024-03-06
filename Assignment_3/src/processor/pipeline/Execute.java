@@ -124,9 +124,13 @@ public class Execute {
 
 	}};
 
-	private static boolean isImmediate(){
+	private static boolean isImmediate(String opcode){
 
     	String type = opcodeToType.get(opcode);
+		if(type == null)
+		{
+			System.out.println("type is null");
+		}
     	if (type != null && (type.equals("r2i") || type.equals("r2i_ldst"))) {
         	isimm = true;
     	}
@@ -194,6 +198,7 @@ public class Execute {
 	{
 		//TODO
 		String opcode = OF_EX_Latch.getOpcode();
+		System.out.print("opcode in EX=");
 		System.out.println(opcode);
 		int imm = OF_EX_Latch.getImmx();
 		int branchtarget = OF_EX_Latch.getBranchTarget();
@@ -201,19 +206,30 @@ public class Execute {
 		int op2 = OF_EX_Latch.getOp2();
 		int instruction = OF_EX_Latch.getInstruction();
 
-		System.out.println(isImmediate());
-		if(isImmediate()){
+		System.out.print("EX isImm=");
+		System.out.println(isImmediate(opcode));
+		if(isImmediate(opcode)){
 			
 			op2 = imm;
 		}
 		int aluresult = ALU(op1, op2);
+		System.out.print("ALU result=");
 		System.out.println(aluresult);
+		isBranchTaken = false;
 		checkBranchtaken(op1, op2);
+		System.out.print("isbranchTaken=");
+		System.out.println(isBranchTaken);
 
 		OF_EX_Latch.setEX_enable(false);
 		EX_MA_Latch.setMA_enable(true);
-		EX_IF_Latch.setIF_enable(false);
-
+		if(isBranchTaken)
+			EX_IF_Latch.setIF_enable(true);
+		else
+			EX_IF_Latch.setIF_enable(false);
+		System.out.print("is if enabled by EX::");
+		System.out.println(EX_IF_Latch.isIF_enable());
+		System.out.print("branchTarget EX=");
+		System.out.println(branchtarget);
 		EX_IF_Latch.setBranchPC(branchtarget);
 		EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
 

@@ -89,7 +89,8 @@ public class Simulator {
 			processor.getRWUnit().performRW();
 			Clock.incrementClock();
 			cycles += 1;
-			setSimulationComplete(true);
+			// if(getNoofInsts() == 15)
+			// 	setSimulationComplete(true);
 		}
 		Statistics.setNumberOfInstructions(noOfInstructions);
 		Statistics.setNumberOfCycles(cycles);

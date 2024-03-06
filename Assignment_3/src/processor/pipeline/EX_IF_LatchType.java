@@ -9,7 +9,7 @@ public class EX_IF_LatchType {
 	
 	public EX_IF_LatchType()
 	{
-		IF_enable = true;
+		IF_enable = false;
 		isBranchTaken = false;
 	}
 

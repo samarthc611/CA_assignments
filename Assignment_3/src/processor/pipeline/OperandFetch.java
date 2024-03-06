@@ -84,7 +84,8 @@ public class OperandFetch {
 			// 	instString = "0" + instString;
 			// }
 			// instString = String.format("%032d",Long.parseLong(instString));
-			// System.out.println(instString); //working correct
+			System.out.print("instString OF=");
+			System.out.println(instString); //working correct
 			String opcode = instString.substring(0, 5);
 			String immstr = instString.substring(15, 32);
 			// if(getType.get(opcode).equals("r2i") || getType.get(opcode).equals("r2i_ldst") || getType.get(opcode).equals("r2i_b")){
@@ -96,8 +97,10 @@ public class OperandFetch {
 			String destImm = instString.substring(10, 32);
 			int immx = convertToInt(immstr);
 			// System.out.println(opcode);
-			// System.out.println(immstr);
-			// System.out.println(immx);
+			System.out.print("immstr OF=");
+			System.out.println(immstr);
+			System.out.print("immx OF=");
+			System.out.println(immx);
 
 
 			// int pc = containingProcessor.getRegisterFile().getProgramCounter();
@@ -106,8 +109,12 @@ public class OperandFetch {
 			if (opcode.equals("11000")) {
 				branchTarget = convertToInt(destImm) + pc;
 			}
-			else
+			else{
 				branchTarget = immx + pc;
+				System.out.print("branchTarget OF=");
+				System.out.println(branchTarget);
+			}
+				
 				
 			String rs1,rs2;
 			if(opcode.equals("10111")){
@@ -119,16 +126,16 @@ public class OperandFetch {
 				rs2 = instString.substring(10,15);
 			}
 
-			// System.out.print("rs1 and rs2 binary are ");
-			// System.out.println(rs1);
-			// System.out.println(rs2);
+			System.out.print("rs1 and rs2 binary are ");
+			System.out.println(rs1);
+			System.out.println(rs2);
 
 
 			int rs1_val = Integer.parseUnsignedInt(rs1, 2);  
 			int rs2_val = Integer.parseUnsignedInt(rs2, 2);
-			// System.out.print("rs1 and rs2 are: ");
-			// System.out.println(rs1_val);
-			// System.out.println(rs2_val);
+			System.out.print("rs1 and rs2 are: ");
+			System.out.println(rs1_val);
+			System.out.println(rs2_val);
 			
 			
 			op1 = containingProcessor.getRegisterFile().getValue(rs1_val);

@@ -26,6 +26,39 @@ public class RegisterWrite {
 		return true;
 	}
 
+	public static HashMap<String, String> opcodeToType = new HashMap<String, String>() {{
+		put("00000", "r3");  // add
+		put("00010", "r3");  // sub
+		put("00100", "r3");  // mul
+		put("00110", "r3");  // div
+		put("01000", "r3");  // and
+		put("01010", "r3");  // or
+		put("01100", "r3");  // xor
+		put("01110", "r3");  // slt
+		put("10000", "r3");  // sll
+		put("10010", "r3");  // srl
+		put("10100", "r3");  // sra
+		put("00001", "r2i");  // addi
+		put("00011", "r2i");  // subi
+		put("00101", "r2i");  // muli
+		put("00111", "r2i");  // divi
+		put("01001", "r2i");  // andi
+		put("01011", "r2i");  // ori
+		put("01101", "r2i");  // xori
+		put("01111", "r2i");  // slti
+		put("10001", "r2i");  // slli
+		put("10011", "r2i");  // srli
+		put("10101", "r2i");  // srai
+		put("10110", "r2i_ldst");  // load
+		put("10111", "r2i_ldst");  // store
+		put("11001", "r2i_b");  // beq
+		put("11010", "r2i_b");  // bne
+		put("11011", "r2i_b");  // blt
+		put("11100", "r2i_b");  // bgt
+		put("11000", "ri");  // jmp
+		put("11101", "end");	// end
+	}};
+
 	public static HashMap<String,String> getType = new HashMap<String, String>(){{
 		put("add","r3");
 		put("sub","r3");
@@ -115,21 +148,29 @@ public class RegisterWrite {
 				if(opcode.equals("10110")){
 					String rd = instString.substring(10, 15);
 					rdI = Integer.parseInt(rd,2); 
+					System.out.print("rdI is: ");
+					System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, ldResult);
+					System.out.print("ld writing in memory:");
+					System.out.println(containingProcessor.getRegisterFile().getValue(rdI));
 				}
-				else if(getType.get(opcode) == "r2i"){
+				else if(opcodeToType.get(opcode).equals("r2i")){
 					String rd = instString.substring(10, 15);
-					rdI = Integer.parseInt(rd,2); 
+					rdI = Integer.parseInt(rd,2);
+					// System.out.print("rdI is: ");
+					// System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, aluResult);
 				}
 				else{
 					String rd = instString.substring(15, 20);
 					rdI = Integer.parseInt(rd,2); 
+					// System.out.print("rdI is: ");
+					// System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, aluResult);
 				}
 			}
 
-			if(getType.get(opcode) == "end"){
+			if(opcodeToType.get(opcode).equals("end")){
 				Simulator.setSimulationComplete(true);
 			}
 

@@ -26,6 +26,8 @@ public class MemoryAccess {
 
 		if(opcode.equals("10110")){
 			ldresult = containingProcessor.getMainMemory().getWord(aluresult);
+			System.out.print("ldresult=");
+			System.out.println(ldresult);
 		}
 		if(opcode.equals("10111")){
 			containingProcessor.getMainMemory().setWord(aluresult,op2);
@@ -37,6 +39,11 @@ public class MemoryAccess {
 		MA_RW_Latch.setOpcode(opcode);
 		MA_RW_Latch.setAluResult(aluresult);
 		MA_RW_Latch.setLdResult(ldresult);
+
+		// System.out.println(MA_RW_Latch.getInstruction());
+		// System.out.println(MA_RW_Latch.getAluResult());
+		// System.out.println(MA_RW_Latch.getLdResult());
+		// System.out.println(MA_RW_Latch.getOpcode());
 	}
 
 }
