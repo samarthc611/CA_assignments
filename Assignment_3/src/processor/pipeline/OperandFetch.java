@@ -140,9 +140,10 @@ public class OperandFetch {
 			OF_EX_Latch.setOp1(op1);
 			OF_EX_Latch.setOp2(op2);
 			OF_EX_Latch.setInstruction(instruction);
+			OF_EX_Latch.setPC(pc);
 
 			IF_OF_Latch.setOF_enable(false);
-			OF_EX_Latch.setEX_enable(false);
+			OF_EX_Latch.setEX_enable(true);
 
 
 			// System.out.println(OF_EX_Latch.getOpcode());

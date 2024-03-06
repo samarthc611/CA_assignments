@@ -9,6 +9,7 @@ public class OF_EX_LatchType {
 	int bt;
 	String opcode;
 	int immx;
+	int pc;
 	
 	public OF_EX_LatchType()
 	{
@@ -64,6 +65,13 @@ public class OF_EX_LatchType {
 	}
 	public void setImmx(int immx) {
 		this.immx = immx;
+	}
+
+	public void setPC(int pc){
+		this.pc = pc;
+	}
+	public int getPC(){
+		return pc;
 	}
 
 }

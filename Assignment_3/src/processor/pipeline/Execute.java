@@ -12,9 +12,8 @@ public class Execute {
 	static String opcode;
 	static boolean isBranchTaken = false;
 	static boolean isimm = false;
-
-	// String OPcode = OF_EX_Latch.getOpcode();
 	int x31 = 0;
+	// String OPcode = OF_EX_Latch.getOpcode();
 
 	public Execute(Processor containingProcessor, OF_EX_LatchType oF_EX_Latch, EX_MA_LatchType eX_MA_Latch, EX_IF_LatchType eX_IF_Latch)
 	{
@@ -58,6 +57,39 @@ public class Execute {
 		put("end","end");
 	}};
 
+	public static HashMap<String, String> opcodeToType = new HashMap<String, String>() {{
+		put("00000", "r3");  // add
+		put("00010", "r3");  // sub
+		put("00100", "r3");  // mul
+		put("00110", "r3");  // div
+		put("01000", "r3");  // and
+		put("01010", "r3");  // or
+		put("01100", "r3");  // xor
+		put("01110", "r3");  // slt
+		put("10000", "r3");  // sll
+		put("10010", "r3");  // srl
+		put("10100", "r3");  // sra
+		put("00001", "r2i");  // addi
+		put("00011", "r2i");  // subi
+		put("00101", "r2i");  // muli
+		put("00111", "r2i");  // divi
+		put("01001", "r2i");  // andi
+		put("01011", "r2i");  // ori
+		put("01101", "r2i");  // xori
+		put("01111", "r2i");  // slti
+		put("10001", "r2i");  // slli
+		put("10011", "r2i");  // srli
+		put("10101", "r2i");  // srai
+		put("10110", "r2i_ldst");  // load
+		put("10111", "r2i_ldst");  // store
+		put("11001", "r2i_b");  // beq
+		put("11010", "r2i_b");  // bne
+		put("11011", "r2i_b");  // blt
+		put("11100", "r2i_b");  // bgt
+		put("11000", "ri");  // jmp
+		put("11101", "end");  // end
+	}};
+
 	public static HashMap<String,String> opTable = new HashMap<String, String>(){{
 		put("add", "00000");
 		put("sub", "00010");
@@ -92,15 +124,14 @@ public class Execute {
 
 	}};
 
+	private static boolean isImmediate(){
 
-	private static boolean isImmediate()
-	{
-		if(getType.get(opcode)=="r2i" || getType.get(opcode)=="r2i_ldst"){
-			isimm = true;
-		}
-		return isimm;
-		
-	}
+    	String type = opcodeToType.get(opcode);
+    	if (type != null && (type.equals("r2i") || type.equals("r2i_ldst"))) {
+        	isimm = true;
+    	}
+    	return isimm;
+}
 	// String opCode = OF_EX_Latch.getOpcode();
 	private void checkBranchtaken(int operand1,int operand2)
 	{
@@ -163,17 +194,20 @@ public class Execute {
 	{
 		//TODO
 		String opcode = OF_EX_Latch.getOpcode();
-		// System.out.println(opcode);
+		System.out.println(opcode);
 		int imm = OF_EX_Latch.getImmx();
 		int branchtarget = OF_EX_Latch.getBranchTarget();
 		int op1 = OF_EX_Latch.getOp1();
 		int op2 = OF_EX_Latch.getOp2();
 		int instruction = OF_EX_Latch.getInstruction();
 
+		System.out.println(isImmediate());
 		if(isImmediate()){
+			
 			op2 = imm;
 		}
 		int aluresult = ALU(op1, op2);
+		System.out.println(aluresult);
 		checkBranchtaken(op1, op2);
 
 		OF_EX_Latch.setEX_enable(false);
@@ -187,6 +221,13 @@ public class Execute {
 		EX_MA_Latch.setAluResult(aluresult);
 		EX_MA_Latch.setOpcode(opcode);
 		EX_MA_Latch.setInstruction(instruction);
+		EX_MA_Latch.setx31(x31);
+
+		// System.out.println("Instruction is");
+		// System.out.println(EX_MA_Latch.getInstruction());
+		// System.out.println(EX_MA_Latch.getOpcode());
+		// System.out.println(EX_MA_Latch.getAluResult());
+		// System.out.println(EX_MA_Latch.getOp2());
 	}
 
 }

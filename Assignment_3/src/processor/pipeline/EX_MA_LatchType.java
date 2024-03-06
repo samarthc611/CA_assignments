@@ -7,6 +7,7 @@ public class EX_MA_LatchType {
 	int instruction;
 	int aluResult;
 	String opcode;
+	int x31;
 	
 	public EX_MA_LatchType()
 	{
@@ -46,6 +47,13 @@ public class EX_MA_LatchType {
 	}
 	public void setAluResult(int aluResult) {
 		this.aluResult= aluResult;
+	}
+
+	public void setx31(int x31){
+		this.x31 = x31;
+	}
+	public int getx31(){
+		return x31;
 	}
 
 }
