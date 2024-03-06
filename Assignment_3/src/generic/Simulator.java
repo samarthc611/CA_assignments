@@ -44,6 +44,8 @@ public class Simulator {
 			
 			int pc  = dataInputStream.readInt();
 			processor.getRegisterFile().setProgramCounter(pc);
+			// System.out.print("the pc is");
+			// System.out.println(pc);
 			
 			byte[] buffer = new byte[4]; // 32 bits = 4 bytes
 			while (fileInputStream.read(buffer) != -1) {

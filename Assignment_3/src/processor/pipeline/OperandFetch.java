@@ -62,12 +62,21 @@ public class OperandFetch {
 		{
 			//TODO
 			instruction = IF_OF_Latch.getInstruction();
+			// System.out.println(instruction);
 			String instString = Integer.toBinaryString(instruction);
-			String temp = "0";
-			for(int i = instString.length(); i<32;i++)
-			{
+			// System.out.println(instString);
+			String temp = "";
+			int i = instString.length();
+			// System.out.print("i is: ");
+			// System.out.println(i);
+			while(i < 32){
 				temp+="0";
+				i++;
 			}
+			// for(int i = instString.length(); i<32;i++)
+			// {
+			// 	temp+="0";
+			// }
 			temp+=instString;
 			instString = temp;
 			// while(instString.length() < 32){
@@ -75,20 +84,30 @@ public class OperandFetch {
 			// 	instString = "0" + instString;
 			// }
 			// instString = String.format("%032d",Long.parseLong(instString));
-			// System.out.println(instString);
+			// System.out.println(instString); //working correct
 			String opcode = instString.substring(0, 5);
-			String immstr = instString.substring(15, 31);
-			String destImm = instString.substring(10, 31);
+			String immstr = instString.substring(15, 32);
+			// if(getType.get(opcode).equals("r2i") || getType.get(opcode).equals("r2i_ldst") || getType.get(opcode).equals("r2i_b")){
+			// 	immstr = instString.substring(15, 32);
+			// }
+			// else{
+			// 	immstr = instString.substring(15, 32);
+			// }
+			String destImm = instString.substring(10, 32);
 			int immx = convertToInt(immstr);
+			// System.out.println(opcode);
+			// System.out.println(immstr);
+			// System.out.println(immx);
 
-			int pc = containingProcessor.getRegisterFile().getProgramCounter();
+
+			// int pc = containingProcessor.getRegisterFile().getProgramCounter();
+			int pc = IF_OF_Latch.getPC();
 
 			if (opcode.equals("11000")) {
 				branchTarget = convertToInt(destImm) + pc;
 			}
 			else
 				branchTarget = immx + pc;
-
 				
 			String rs1,rs2;
 			if(opcode.equals("10111")){
@@ -100,9 +119,17 @@ public class OperandFetch {
 				rs2 = instString.substring(10,15);
 			}
 
+			// System.out.print("rs1 and rs2 binary are ");
+			// System.out.println(rs1);
+			// System.out.println(rs2);
 
-			int rs1_val = Integer.parseInt(rs1, 2);  
-			int rs2_val = Integer.parseInt(rs2, 2);
+
+			int rs1_val = Integer.parseUnsignedInt(rs1, 2);  
+			int rs2_val = Integer.parseUnsignedInt(rs2, 2);
+			// System.out.print("rs1 and rs2 are: ");
+			// System.out.println(rs1_val);
+			// System.out.println(rs2_val);
+			
 			
 			op1 = containingProcessor.getRegisterFile().getValue(rs1_val);
 			op2 = containingProcessor.getRegisterFile().getValue(rs2_val);
@@ -116,6 +143,12 @@ public class OperandFetch {
 
 			IF_OF_Latch.setOF_enable(false);
 			OF_EX_Latch.setEX_enable(false);
+
+
+			// System.out.println(OF_EX_Latch.getOpcode());
+			// System.out.println(OF_EX_Latch.getOp1());
+			// System.out.println(OF_EX_Latch.getOp2());
+
 		}
 	}
 
