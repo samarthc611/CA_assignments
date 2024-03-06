@@ -3,6 +3,7 @@ package generic;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import processor.Clock;
 import processor.Processor;
@@ -44,8 +45,13 @@ public class Simulator {
 			int pc  = dataInputStream.readInt();
 			processor.getRegisterFile().setProgramCounter(pc);
 			
-			while ((data = fileInputStream.read()) != -1) {
-				processor.getMainMemory().setWord(address, dataInputStream.readInt());
+			byte[] buffer = new byte[4]; // 32 bits = 4 bytes
+			while (fileInputStream.read(buffer) != -1) {
+				data = ByteBuffer.wrap(buffer).getInt();
+				// System.out.print("data is ");
+				// System.out.println(data);
+				processor.getMainMemory().setWord(address, data);
+				// System.out.println(processor.getMainMemory().getWord(address));
 				address = address + 1;
 			}
 			dataInputStream.close(); // Don't forget to close the stream
@@ -81,6 +87,7 @@ public class Simulator {
 			processor.getRWUnit().performRW();
 			Clock.incrementClock();
 			cycles += 1;
+			setSimulationComplete(true);
 		}
 		Statistics.setNumberOfInstructions(noOfInstructions);
 		Statistics.setNumberOfCycles(cycles);
