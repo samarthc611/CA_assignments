@@ -39,6 +39,7 @@ public class MemoryAccess {
 		MA_RW_Latch.setOpcode(opcode);
 		MA_RW_Latch.setAluResult(aluresult);
 		MA_RW_Latch.setLdResult(ldresult);
+		MA_RW_Latch.setx31(EX_MA_Latch.getx31());
 
 		// System.out.println(MA_RW_Latch.getInstruction());
 		// System.out.println(MA_RW_Latch.getAluResult());

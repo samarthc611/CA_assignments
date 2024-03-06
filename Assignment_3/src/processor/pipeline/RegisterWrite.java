@@ -11,6 +11,7 @@ public class RegisterWrite {
 	IF_EnableLatchType IF_EnableLatch;
 	String opcode;
 	int rdI;
+	// int x31;
 	
 	public RegisterWrite(Processor containingProcessor, MA_RW_LatchType mA_RW_Latch, IF_EnableLatchType iF_EnableLatch)
 	{
@@ -168,6 +169,8 @@ public class RegisterWrite {
 					// System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, aluResult);
 				}
+				if(opcode.equals("00110") || opcode.equals("00111"))
+				containingProcessor.getRegisterFile().setValue(31, MA_RW_Latch.getx31());
 			}
 
 			if(opcodeToType.get(opcode).equals("end")){

@@ -7,7 +7,8 @@ public class MA_RW_LatchType {
 	String opcode;
 	int aluResult;
 	int ldResult;
-	
+	int x31;
+
 	public MA_RW_LatchType()
 	{
 		RW_enable = false;
@@ -46,6 +47,13 @@ public class MA_RW_LatchType {
 	}
 	public void setLdResult(int ldResult) {
 		this.ldResult= ldResult;
+	}
+
+	public void setx31(int x31){
+		this.x31 = x31;
+	}
+	public int getx31(){
+		return x31;
 	}
 
 }
