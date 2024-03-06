@@ -63,11 +63,19 @@ public class OperandFetch {
 			//TODO
 			instruction = IF_OF_Latch.getInstruction();
 			String instString = Integer.toBinaryString(instruction);
-			while(instString.length() < 32){
-				
-				instString = "0" + instString;
+			String temp = "0";
+			for(int i = instString.length(); i<32;i++)
+			{
+				temp+="0";
 			}
-			// System.out.println(instString.length());
+			temp+=instString;
+			instString = temp;
+			// while(instString.length() < 32){
+				
+			// 	instString = "0" + instString;
+			// }
+			// instString = String.format("%032d",Long.parseLong(instString));
+			// System.out.println(instString);
 			String opcode = instString.substring(0, 5);
 			String immstr = instString.substring(15, 31);
 			String destImm = instString.substring(10, 31);
@@ -107,7 +115,7 @@ public class OperandFetch {
 			OF_EX_Latch.setInstruction(instruction);
 
 			IF_OF_Latch.setOF_enable(false);
-			OF_EX_Latch.setEX_enable(true);
+			OF_EX_Latch.setEX_enable(false);
 		}
 	}
 

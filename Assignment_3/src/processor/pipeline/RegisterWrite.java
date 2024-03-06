@@ -104,6 +104,12 @@ public class RegisterWrite {
 			int ldResult = MA_RW_Latch.getLdResult();
 
 			String instString = Integer.toBinaryString(instruction);
+			// instString = String.format("%032s", instString);
+			while(instString.length() < 32){
+				instString = "0" + instString;
+			}
+			// System.out.println(instString);
+			// System.out.println(instString.length());
 
 			if(isWb()){
 				if(opcode.equals("10110")){

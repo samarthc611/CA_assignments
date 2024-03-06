@@ -13,6 +13,7 @@ public class OF_EX_LatchType {
 	public OF_EX_LatchType()
 	{
 		EX_enable = false;
+		// opcode="11111";
 	}
 
 	public boolean isEX_enable() {

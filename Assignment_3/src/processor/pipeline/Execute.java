@@ -13,6 +13,9 @@ public class Execute {
 	static boolean isBranchTaken = false;
 	static boolean isimm = false;
 
+	// String OPcode = OF_EX_Latch.getOpcode();
+	int x31 = 0;
+
 	public Execute(Processor containingProcessor, OF_EX_LatchType oF_EX_Latch, EX_MA_LatchType eX_MA_Latch, EX_IF_LatchType eX_IF_Latch)
 	{
 		this.containingProcessor = containingProcessor;
@@ -111,43 +114,46 @@ public class Execute {
 				
 	}
 
+	
+	
 	private int ALU(int operand1, int operand2)
 	{
 		int aluResult = 0;
 		// System.out.println(OF_EX_Latch.getOpcode());
-		if(OF_EX_Latch.getOpcode().equals("00001")){
+		if(OF_EX_Latch.getOpcode().equals("00001") || OF_EX_Latch.getOpcode().equals("00000") || OF_EX_Latch.getOpcode().equals("10110") || OF_EX_Latch.getOpcode().equals("10111")){
 			aluResult = operand1 + operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("00011")){
+		else if(OF_EX_Latch.getOpcode().equals("00011") || OF_EX_Latch.getOpcode().equals("00010")){
 			aluResult = operand1 - operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("00101")){
+		else if(OF_EX_Latch.getOpcode().equals("00101") || OF_EX_Latch.getOpcode().equals("00100")){
 			aluResult = operand1 * operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("00111")){
+		else if(OF_EX_Latch.getOpcode().equals("00111") || OF_EX_Latch.getOpcode().equals("00110")){
 			aluResult = operand1 / operand2;
+			x31 = operand1 % operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("01001")){
+		else if(OF_EX_Latch.getOpcode().equals("01001") || OF_EX_Latch.getOpcode().equals("01000")){
 			aluResult = operand1 & operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("01011")){
+		else if(OF_EX_Latch.getOpcode().equals("01011") || OF_EX_Latch.getOpcode().equals("01010")){
 			aluResult = operand1 | operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("01101")){
+		else if(OF_EX_Latch.getOpcode().equals("01101") || OF_EX_Latch.getOpcode().equals("01100")){
 			aluResult = operand1 ^ operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("10001")){
+		else if(OF_EX_Latch.getOpcode().equals("10001") || OF_EX_Latch.getOpcode().equals("10000")){
 			aluResult = operand1 << operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("10011")){
+		else if(OF_EX_Latch.getOpcode().equals("10011") || OF_EX_Latch.getOpcode().equals("10010")){
 			aluResult = operand1 >>> operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("10101")){
+		else if(OF_EX_Latch.getOpcode().equals("10101") || OF_EX_Latch.getOpcode().equals("10100")){
 			aluResult = operand1 >> operand2;
 		}
-		else if(OF_EX_Latch.getOpcode().equals("10111")){
-			aluResult = operand1 + operand2;
-		}
+		// else if(OPcode.equals("10111")){
+		// 	aluResult = operand1 + operand2;
+		// }
 		return aluResult;
 	}
 
@@ -157,6 +163,7 @@ public class Execute {
 	{
 		//TODO
 		String opcode = OF_EX_Latch.getOpcode();
+		// System.out.println(opcode);
 		int imm = OF_EX_Latch.getImmx();
 		int branchtarget = OF_EX_Latch.getBranchTarget();
 		int op1 = OF_EX_Latch.getOp1();
@@ -171,7 +178,7 @@ public class Execute {
 
 		OF_EX_Latch.setEX_enable(false);
 		EX_MA_Latch.setMA_enable(true);
-		EX_IF_Latch.setIF_enable(true);
+		EX_IF_Latch.setIF_enable(false);
 
 		EX_IF_Latch.setBranchPC(branchtarget);
 		EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
