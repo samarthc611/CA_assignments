@@ -97,10 +97,10 @@ public class OperandFetch {
 			String destImm = instString.substring(10, 32);
 			int immx = convertToInt(immstr);
 			// System.out.println(opcode);
-			System.out.print("immstr OF=");
-			System.out.println(immstr);
-			System.out.print("immx OF=");
-			System.out.println(immx);
+			// System.out.print("immstr OF=");
+			// System.out.println(immstr);
+			// System.out.print("immx OF=");
+			// System.out.println(immx);
 
 
 			// int pc = containingProcessor.getRegisterFile().getProgramCounter();
@@ -111,8 +111,8 @@ public class OperandFetch {
 			}
 			else{
 				branchTarget = immx + pc;
-				System.out.print("branchTarget OF=");
-				System.out.println(branchTarget);
+				// System.out.print("branchTarget OF=");
+				// System.out.println(branchTarget);
 			}
 				
 				
@@ -126,9 +126,9 @@ public class OperandFetch {
 				rs2 = instString.substring(10,15);
 			}
 
-			System.out.print("rs1 and rs2 binary are ");
-			System.out.println(rs1);
-			System.out.println(rs2);
+			// System.out.print("rs1 and rs2 binary are ");
+			// System.out.println(rs1);
+			// System.out.println(rs2);
 
 
 			int rs1_val = Integer.parseUnsignedInt(rs1, 2);  
@@ -140,6 +140,10 @@ public class OperandFetch {
 			
 			op1 = containingProcessor.getRegisterFile().getValue(rs1_val);
 			op2 = containingProcessor.getRegisterFile().getValue(rs2_val);
+
+			System.out.println("op1 and op2 OF are: ");
+			System.out.println(op1);
+			System.out.println(op2);
 
 			OF_EX_Latch.setOpcode(opcode);
 			OF_EX_Latch.setImmx(immx);

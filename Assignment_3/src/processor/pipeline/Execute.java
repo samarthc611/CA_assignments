@@ -197,36 +197,42 @@ public class Execute {
 		return aluResult;
 	}
 
-	
+	int aluresult;
 
 	public void performEX()
 	{
 		//TODO
 		String opcode = OF_EX_Latch.getOpcode();
-		System.out.print("opcode in EX=");
-		System.out.println(opcode);
+		// System.out.print("opcode in EX=");
+		// System.out.println(opcode);
 		int imm = OF_EX_Latch.getImmx();
 		int branchtarget = OF_EX_Latch.getBranchTarget();
 		int op1 = OF_EX_Latch.getOp1();
 		int op2 = OF_EX_Latch.getOp2();
 		System.out.print("op1 & op2 EX=");
 		System.out.println(op1);
-		System.out.println(op1);
+		System.out.println(op2);
 		int instruction = OF_EX_Latch.getInstruction();
 
 		System.out.print("EX isImm=");
 		System.out.println(isImmediate(opcode));
-		if(isImmediate(opcode)){
+		
+		if(opcode.equals("10111")){
+			aluresult = ALU(op1, imm);
+		}
+		if(isImmediate(opcode) && opcode.equals("10111")== false){
 			
 			op2 = imm;
 		}
-		int aluresult = ALU(op1, op2);
-		System.out.print("ALU result=");
+		if(opcode.equals("10111") == false){
+			aluresult = ALU(op1, op2);
+		}
+		System.out.print("ALU result EX=");
 		System.out.println(aluresult);
 		isBranchTaken = false;
 		checkBranchtaken(op1, op2);
-		System.out.print("isbranchTaken=");
-		System.out.println(isBranchTaken);
+		// System.out.print("isbranchTaken=");
+		// System.out.println(isBranchTaken);
 
 		OF_EX_Latch.setEX_enable(false);
 		EX_MA_Latch.setMA_enable(true);
@@ -234,13 +240,14 @@ public class Execute {
 			EX_IF_Latch.setIF_enable(true);
 		else
 			EX_IF_Latch.setIF_enable(false);
-		System.out.print("is if enabled by EX::");
-		System.out.println(EX_IF_Latch.isIF_enable());
-		System.out.print("branchTarget EX=");
-		System.out.println(branchtarget);
+		// System.out.print("is if enabled by EX::");
+		// System.out.println(EX_IF_Latch.isIF_enable());
+		// System.out.print("branchTarget EX=");
+		// System.out.println(branchtarget);
 		EX_IF_Latch.setBranchPC(branchtarget);
 		EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
 
+		EX_MA_Latch.setOp1(op1);
 		EX_MA_Latch.setOp2(op2);
 		EX_MA_Latch.setAluResult(aluresult);
 		EX_MA_Latch.setOpcode(opcode);

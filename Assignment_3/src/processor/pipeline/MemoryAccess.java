@@ -20,17 +20,24 @@ public class MemoryAccess {
 		//TODO
 
 		int op2 = EX_MA_Latch.getOp2();
+		int op1 = EX_MA_Latch.getOp1();
 		int aluresult = EX_MA_Latch.getAluResult();
 		String opcode = EX_MA_Latch.getOpcode();
 		int instruction = EX_MA_Latch.getInstruction();
 
 		if(opcode.equals("10110")){
 			ldresult = containingProcessor.getMainMemory().getWord(aluresult);
-			System.out.print("ldresult=");
-			System.out.println(ldresult);
+			// System.out.print("ldresult=");
+			// System.out.println(ldresult);
 		}
 		if(opcode.equals("10111")){
+			System.out.print("aluresult for store inst: ");
+			System.out.println(aluresult);
+			System.out.println("op2 MA=");
+			System.out.println(op2);
 			containingProcessor.getMainMemory().setWord(aluresult,op2);
+			System.out.print("store inst MA ");
+			System.out.println(containingProcessor.getMainMemory().getWord(aluresult));
 		}
 
 		EX_MA_Latch.setMA_enable(false);
@@ -38,15 +45,15 @@ public class MemoryAccess {
 		MA_RW_Latch.setInstruction(instruction);
 		MA_RW_Latch.setOpcode(opcode);
 		MA_RW_Latch.setAluResult(aluresult);
-		System.out.print("ldresult befor marw set=");
-		System.out.println(ldresult);
+		// System.out.print("ldresult befor marw set=");
+		// System.out.println(ldresult);
 		MA_RW_Latch.setLdResult(ldresult);
 		MA_RW_Latch.setx31(EX_MA_Latch.getx31());
 
 		// System.out.println(MA_RW_Latch.getInstruction());
 		// System.out.println(MA_RW_Latch.getAluResult());
-		System.out.print("ma  rw latch ldresult=");
-		System.out.println(MA_RW_Latch.getLdResult());
+		// System.out.print("ma  rw latch ldresult=");
+		// System.out.println(MA_RW_Latch.getLdResult());
 		// System.out.println(MA_RW_Latch.getOpcode());
 	}
 

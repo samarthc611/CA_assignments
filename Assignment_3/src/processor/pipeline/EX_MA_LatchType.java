@@ -3,6 +3,7 @@ package processor.pipeline;
 public class EX_MA_LatchType {
 	
 	boolean MA_enable;
+	int op1;
 	int op2;
 	int instruction;
 	int aluResult;
@@ -26,6 +27,13 @@ public class EX_MA_LatchType {
 	}
 	public void setOp2(int op2) {
 		this.op2 = op2;
+	}
+
+	public int getOp1() {
+		return op1;
+	}
+	public void setOp1(int op1) {
+		this.op1 = op1;
 	}
 
 	public int getInstruction() {

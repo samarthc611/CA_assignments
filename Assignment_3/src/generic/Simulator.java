@@ -90,10 +90,10 @@ public class Simulator {
 			processor.getRWUnit().performRW();
 			Clock.incrementClock();
 			cycles += 1;
-			// if(getNoofInsts() == 15)
+			// if(getNoofInsts() == 20)
 			// 	setSimulationComplete(true);
 		}
-		System.out.println("Memory for palindrome:");
+		System.out.println("Memory for fibo:");
 		for(int j = 65524; j < 65536; j++)
 		{
 			System.out.println(processor.getMainMemory().getWord(j));

@@ -137,8 +137,8 @@ public class RegisterWrite {
 			int instruction = MA_RW_Latch.getInstruction();
 			aluResult = MA_RW_Latch.getAluResult();
 			ldResult = MA_RW_Latch.getLdResult();
-			System.out.print("ldresult RW=");
-			System.out.println(ldResult);
+			// System.out.print("ldresult RW=");
+			// System.out.println(ldResult);
 
 			String instString = Integer.toBinaryString(instruction);
 			// instString = String.format("%032s", instString);
