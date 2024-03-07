@@ -132,8 +132,13 @@ public class Execute {
 			System.out.println("type is null");
 		}
     	if (type != null && (type.equals("r2i") || type.equals("r2i_ldst"))) {
-        	isimm = true;
+			// if(type.equals("r2i_b"))
+			// 	isimm = false;
+			// else
+        		isimm = true;
     	}
+		else
+			isimm = false;
     	return isimm;
 }
 	// String opCode = OF_EX_Latch.getOpcode();
@@ -204,6 +209,9 @@ public class Execute {
 		int branchtarget = OF_EX_Latch.getBranchTarget();
 		int op1 = OF_EX_Latch.getOp1();
 		int op2 = OF_EX_Latch.getOp2();
+		System.out.print("op1 & op2 EX=");
+		System.out.println(op1);
+		System.out.println(op1);
 		int instruction = OF_EX_Latch.getInstruction();
 
 		System.out.print("EX isImm=");

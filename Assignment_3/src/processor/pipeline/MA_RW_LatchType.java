@@ -43,7 +43,7 @@ public class MA_RW_LatchType {
 	}
 
 	public int getLdResult() {
-		return aluResult;
+		return ldResult;
 	}
 	public void setLdResult(int ldResult) {
 		this.ldResult= ldResult;

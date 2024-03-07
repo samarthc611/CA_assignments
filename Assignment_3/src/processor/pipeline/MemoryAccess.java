@@ -38,12 +38,15 @@ public class MemoryAccess {
 		MA_RW_Latch.setInstruction(instruction);
 		MA_RW_Latch.setOpcode(opcode);
 		MA_RW_Latch.setAluResult(aluresult);
+		System.out.print("ldresult befor marw set=");
+		System.out.println(ldresult);
 		MA_RW_Latch.setLdResult(ldresult);
 		MA_RW_Latch.setx31(EX_MA_Latch.getx31());
 
 		// System.out.println(MA_RW_Latch.getInstruction());
 		// System.out.println(MA_RW_Latch.getAluResult());
-		// System.out.println(MA_RW_Latch.getLdResult());
+		System.out.print("ma  rw latch ldresult=");
+		System.out.println(MA_RW_Latch.getLdResult());
 		// System.out.println(MA_RW_Latch.getOpcode());
 	}
 

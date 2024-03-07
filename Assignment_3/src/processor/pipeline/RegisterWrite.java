@@ -126,7 +126,8 @@ public class RegisterWrite {
 		put("end","11101");
 
 	}};
-	
+	int ldResult;
+	int aluResult;
 	public void performRW()
 	{
 		if(MA_RW_Latch.isRW_enable())
@@ -134,8 +135,10 @@ public class RegisterWrite {
 
 			opcode = MA_RW_Latch.getOpcode();
 			int instruction = MA_RW_Latch.getInstruction();
-			int aluResult = MA_RW_Latch.getAluResult();
-			int ldResult = MA_RW_Latch.getLdResult();
+			aluResult = MA_RW_Latch.getAluResult();
+			ldResult = MA_RW_Latch.getLdResult();
+			System.out.print("ldresult RW=");
+			System.out.println(ldResult);
 
 			String instString = Integer.toBinaryString(instruction);
 			// instString = String.format("%032s", instString);
@@ -151,6 +154,8 @@ public class RegisterWrite {
 					rdI = Integer.parseInt(rd,2); 
 					System.out.print("rdI is: ");
 					System.out.println(rdI);
+					System.out.print("ldresult before writing=");
+					System.out.println(ldResult);
 					containingProcessor.getRegisterFile().setValue(rdI, ldResult);
 					System.out.print("ld writing in memory:");
 					System.out.println(containingProcessor.getRegisterFile().getValue(rdI));
@@ -161,6 +166,8 @@ public class RegisterWrite {
 					// System.out.print("rdI is: ");
 					// System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, aluResult);
+					System.out.print("r2i RW=");
+					System.out.println(containingProcessor.getRegisterFile().getValue(rdI));
 				}
 				else{
 					String rd = instString.substring(15, 20);
@@ -169,8 +176,11 @@ public class RegisterWrite {
 					// System.out.println(rdI);
 					containingProcessor.getRegisterFile().setValue(rdI, aluResult);
 				}
-				if(opcode.equals("00110") || opcode.equals("00111"))
+				if(opcode.equals("00110") || opcode.equals("00111")){
 				containingProcessor.getRegisterFile().setValue(31, MA_RW_Latch.getx31());
+				System.out.print("x31 RW=");
+				System.out.println(containingProcessor.getRegisterFile().getValue(31));
+				}
 			}
 
 			if(opcodeToType.get(opcode).equals("end")){

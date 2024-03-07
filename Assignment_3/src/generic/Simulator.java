@@ -41,13 +41,14 @@ public class Simulator {
 			FileInputStream fileInputStream = new FileInputStream(assemblyProgramFile);
 			DataInputStream dataInputStream = new DataInputStream(fileInputStream);
 
-			
-			int pc  = dataInputStream.readInt();
-			processor.getRegisterFile().setProgramCounter(pc);
-			// System.out.print("the pc is");
-			// System.out.println(pc);
-			
 			byte[] buffer = new byte[4]; // 32 bits = 4 bytes
+			fileInputStream.read(buffer);
+			int pc  = ByteBuffer.wrap(buffer).getInt();
+			processor.getRegisterFile().setProgramCounter(pc);
+			System.out.print("the pc is");
+			System.out.println(pc);
+			
+			
 			while (fileInputStream.read(buffer) != -1) {
 				data = ByteBuffer.wrap(buffer).getInt();
 				// System.out.print("data is ");
@@ -91,6 +92,12 @@ public class Simulator {
 			cycles += 1;
 			// if(getNoofInsts() == 15)
 			// 	setSimulationComplete(true);
+		}
+		System.out.println("Memory for palindrome:");
+		for(int j = 65524; j < 65536; j++)
+		{
+			System.out.println(processor.getMainMemory().getWord(j));
+
 		}
 		Statistics.setNumberOfInstructions(noOfInstructions);
 		Statistics.setNumberOfCycles(cycles);
