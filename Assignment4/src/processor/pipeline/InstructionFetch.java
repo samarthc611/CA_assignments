@@ -26,7 +26,7 @@ public class InstructionFetch {
 		{
 			
 			// System.out.println(EX_IF_Latch.isIF_enable());
-			System.out.println("hg");
+			System.out.println("IF is ON");
 			if(EX_IF_Latch.isIF_enable()){
 
 					// System.out.print("is branch taken?");

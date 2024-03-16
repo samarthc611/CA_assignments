@@ -180,7 +180,8 @@ public class OperandFetch {
 			int rs1_val = Integer.parseUnsignedInt(rs1, 2);  
 			int rs2_val = Integer.parseUnsignedInt(rs2, 2);
 			System.out.print("rs1 and rs2 are: ");
-			System.out.println(rs1_val);
+			System.out.print(rs1_val);
+			System.out.println(", ");
 			System.out.println(rs2_val);
 
 			String rd;
@@ -201,34 +202,59 @@ public class OperandFetch {
 			// OF_EX_Latch.setEX_enable(true);
 			if(Clock.getCurrentTime() == 1){
 				// OF_EX_Latch = new OF_EX_LatchType();
-				EX_MA_Latch = new EX_MA_LatchType();
-				MA_RW_Latch = new MA_RW_LatchType();
+				// EX_MA_Latch = new EX_MA_LatchType();
+				// MA_RW_Latch = new MA_RW_LatchType();
 				// OF_EX_Latch.setRd(40);
-				EX_MA_Latch.setRd(90);
-				MA_RW_Latch.setRd(40);
+				// EX_MA_Latch.setRd(90);
+				// MA_RW_Latch.setRd(40);
+				OF_EX_Latch.setRW_rd(40);
+				OF_EX_Latch.setMA_rd(90);
 			}
 			if(Clock.getCurrentTime() == 2){
 				// EX_MA_Latch = new EX_MA_LatchType();
-				MA_RW_Latch = new MA_RW_LatchType();
+				// MA_RW_Latch = new MA_RW_LatchType();
 				// EX_MA_Latch.setRd(40);
-				MA_RW_Latch.setRd(40);
+				// MA_RW_Latch.setRd(40);
+				OF_EX_Latch.setRW_rd(40);
 			}
 			// if(Clock.getCurrentTime() == 3){
 			// 	MA_RW_Latch = new MA_RW_LatchType();
 			// 	MA_RW_Latch.setRd(40);
 			// }
-			System.out.println(OF_EX_Latch.getRd());
-			System.out.println(EX_MA_Latch.getRd());
-			System.out.println(MA_RW_Latch.getRd());
-			if((OF_EX_Latch.getRd() == rs1_val && rs1_val !=0 )|| (OF_EX_Latch.getRd() == rs2_val && rs2_val !=0) || (EX_MA_Latch.getRd() == rs1_val && rs1_val !=0 )|| (EX_MA_Latch.getRd() == rs2_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs1_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs2_val && rs1_val !=0)){
+
+			// System.out.println(OF_EX_Latch.getRd());
+			// System.out.println(EX_MA_Latch.getRd());
+			// System.out.println(MA_RW_Latch.getRd());
+			
+			System.out.println("EX & RD from of ex latch");
+			System.out.println(OF_EX_Latch.getEX_rd());
+			System.out.println(OF_EX_Latch.getMA_rd());
+			System.out.println(OF_EX_Latch.getRW_rd());
+
+			if((OF_EX_Latch.getEX_rd() == rs1_val && rs1_val !=0 )|| (OF_EX_Latch.getEX_rd() == rs2_val && rs2_val !=0) || (OF_EX_Latch.getMA_rd() == rs2_val && rs2_val !=0 )|| (OF_EX_Latch.getMA_rd() == rs1_val && rs1_val !=0) || (OF_EX_Latch.getRW_rd()== rs2_val && rs2_val !=0) || (OF_EX_Latch.getRW_rd() == rs1_val && rs1_val !=0) || (rs1_val == 31 || rs2_val == 31)){
 				OF_EX_Latch.setInstruction(0);
 				System.out.println("Bubble added in OF");
 				IF_OF_Latch.set_Stall(true);
 				IF_OF_Latch.setOF_enable(true);
 				OF_EX_Latch.setEX_enable(true);
 				OF_EX_Latch.setRd(40);
-				
+
+				OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
+				OF_EX_Latch.setMA_rd(OF_EX_Latch.getEX_rd());
+				OF_EX_Latch.setEX_rd(40);
 			}
+			// if((OF_EX_Latch.getRd() == rs1_val && rs1_val !=0 )|| (OF_EX_Latch.getRd() == rs2_val && rs2_val !=0) || (EX_MA_Latch.getRd() == rs1_val && rs1_val !=0 )|| (EX_MA_Latch.getRd() == rs2_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs1_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs2_val && rs1_val !=0) || (rs1_val != 31 && rs2_val != 31)){
+			// 	OF_EX_Latch.setInstruction(0);
+			// 	System.out.println("Bubble added in OF");
+			// 	IF_OF_Latch.set_Stall(true);
+			// 	IF_OF_Latch.setOF_enable(true);
+			// 	OF_EX_Latch.setEX_enable(true);
+			// 	OF_EX_Latch.setRd(40);
+
+			// 	OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
+			// 	OF_EX_Latch.setMA_rd(OF_EX_Latch.getEX_rd());
+			// 	OF_EX_Latch.setEX_rd(40);
+			// }
 
 			// if((EX_MA_Latch.getRd() == rs1_val && EX_MA_Latch.isMA_enable() )|| (EX_MA_Latch.getRd() == rs2_val && EX_MA_Latch.isMA_enable()) || (MA_RW_Latch.getRd() == rs1_val && MA_RW_Latch.isRW_enable()) || (MA_RW_Latch.getRd() == rs2_val && MA_RW_Latch.isRW_enable())){
 			// 	OF_EX_Latch.setInstruction(0);
@@ -236,8 +262,8 @@ public class OperandFetch {
 			// 	System.out.println("OFstuck");
 			// }
 			else{
-				
-				System.out.println("opppo");
+				IF_OF_Latch.set_Stall(false);
+				System.out.println("no bubble was needed");
 				op1 = containingProcessor.getRegisterFile().getValue(rs1_val);
 				op2 = containingProcessor.getRegisterFile().getValue(rs2_val);
 
@@ -256,6 +282,9 @@ public class OperandFetch {
 				OF_EX_Latch.setPC(pc);
 				OF_EX_Latch.setRd(rdI);
 				
+				OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
+				OF_EX_Latch.setMA_rd(OF_EX_Latch.getEX_rd());
+				OF_EX_Latch.setEX_rd(rdI);
 
 				IF_OF_Latch.setOF_enable(true);
 				OF_EX_Latch.setEX_enable(true);
@@ -265,6 +294,8 @@ public class OperandFetch {
 				// System.out.println(OF_EX_Latch.getOp1());
 				// System.out.println(OF_EX_Latch.getOp2());
 			}
+			IF_OF_Latch.setOF_enable(true);
+			OF_EX_Latch.setEX_enable(true);
 		}
 	}
 

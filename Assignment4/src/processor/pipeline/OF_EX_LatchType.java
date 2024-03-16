@@ -11,6 +11,9 @@ public class OF_EX_LatchType {
 	int immx;
 	int pc;
 	int rd;
+	int EX_rd;
+	int MA_rd;
+	int RW_rd;
 	
 	public OF_EX_LatchType()
 	{
@@ -90,4 +93,25 @@ public class OF_EX_LatchType {
 		return pc;
 	}
 
+	public void setEX_rd(int ex_rd){
+		this.EX_rd = ex_rd;
+	}
+	public int getEX_rd(){
+		return EX_rd;
+	}
+
+
+	public void setMA_rd(int ma_rd){
+		this.MA_rd = ma_rd;
+	}
+	public int getMA_rd(){
+		return MA_rd;
+	}
+
+	public void setRW_rd(int rw_rd){
+		this.RW_rd = rw_rd;
+	}
+	public int getRW_rd(){
+		return RW_rd;
+	}
 }

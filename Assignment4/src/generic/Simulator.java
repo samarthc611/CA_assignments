@@ -92,15 +92,15 @@ public class Simulator {
 			cycles += 1;
 			System.out.println("***********cycles: ");
 			System.out.println(Clock.getCurrentTime());
-			if(cycles == 10)
+			if(cycles == 20)
 				setSimulationComplete(true);
 		}
-		System.out.println("Memory for fibo:");
-		for(int j = 65524; j < 65536; j++)
-		{
-			System.out.println(processor.getMainMemory().getWord(j));
+		// System.out.println("Memory for fibo:");
+		// for(int j = 65524; j < 65536; j++)
+		// {
+		// 	System.out.println(processor.getMainMemory().getWord(j));
 
-		}
+		// }
 		Statistics.setNumberOfInstructions(noOfInstructions);
 		Statistics.setNumberOfCycles(cycles);
 	}
