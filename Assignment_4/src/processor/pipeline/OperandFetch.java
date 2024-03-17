@@ -133,6 +133,9 @@ public class OperandFetch {
 			System.out.print("instString OF=");
 			System.out.println(instString); //working correct
 			String opcode = instString.substring(0, 5);
+			// if(opcode.equals("11101")){
+				
+			// }
 			String immstr = instString.substring(15, 32);
 			// if(getType.get(opcode).equals("r2i") || getType.get(opcode).equals("r2i_ldst") || getType.get(opcode).equals("r2i_b")){
 			// 	immstr = instString.substring(15, 32);
@@ -247,9 +250,9 @@ public class OperandFetch {
 				
 				((OF_EX_Latch.getEX_op() != null) && ((OF_EX_Latch.getEX_op().equals("00110") || OF_EX_Latch.getEX_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31))) ||
 				
-				((OF_EX_Latch.getMA_op() != null) && (OF_EX_Latch.getMA_op() == "00110" || OF_EX_Latch.getMA_op() == "00111") && (rs1_val == 31 || rs2_val == 31)) || 
+				((OF_EX_Latch.getMA_op() != null) && (OF_EX_Latch.getMA_op().equals("00110") || OF_EX_Latch.getMA_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) || 
 				
-				((OF_EX_Latch.getRW_op() != null) && (OF_EX_Latch.getRW_op() == "00110" || OF_EX_Latch.getRW_op() == "00111") && (rs1_val == 31 || rs2_val == 31))
+				((OF_EX_Latch.getRW_op() != null) && (OF_EX_Latch.getRW_op().equals("00110") || OF_EX_Latch.getRW_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31))
 			
 			){
 				OF_EX_Latch.setInstruction(0);

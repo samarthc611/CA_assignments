@@ -145,6 +145,7 @@ public class RegisterWrite {
 			else{
 				opcode = MA_RW_Latch.getOpcode();
 				instruction = MA_RW_Latch.getInstruction();
+				
 				aluResult = MA_RW_Latch.getAluResult();
 				ldResult = MA_RW_Latch.getLdResult();
 				// System.out.print("ldresult RW=");
@@ -155,9 +156,11 @@ public class RegisterWrite {
 				while(instString.length() < 32){
 					instString = "0" + instString;
 				}
-				// System.out.println(instString);
+				System.out.println("Inst in RW");
+				System.out.println(instString);
 				// System.out.println(instString.length());
-
+				System.out.print("WB: ");
+				System.out.println(isWb());
 				if(isWb()){
 					if(opcode.equals("10110")){
 						String rd = instString.substring(10, 15);
@@ -184,8 +187,10 @@ public class RegisterWrite {
 					else{
 						String rd = instString.substring(15, 20);
 						rdI = Integer.parseInt(rd,2); 
-						// System.out.print("rdI is: ");
-						// System.out.println(rdI);
+						System.out.print("rdI is: ");
+						System.out.println(rdI);
+						System.out.println("Alu result: ");
+						System.out.println(aluResult);
 						containingProcessor.getRegisterFile().setValue(rdI, aluResult);
 						// IF_OF_Latch.set_Stall(false);
 					}
