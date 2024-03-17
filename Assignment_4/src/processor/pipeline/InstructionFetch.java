@@ -39,7 +39,16 @@ public class InstructionFetch {
 						System.out.println(currentPC);
 						System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
 						EX_IF_Latch.setIsBRanchTaken(false);
-					}		
+					}
+					// else{
+					// 	if(IF_OF_Latch.is_Stall() == true){
+					// 		containingProcessor.getRegisterFile().setProgramCounter(currentPC);
+					// 	}
+					// 	else{
+
+					// 		containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
+					// 	}
+					// }		
 			}
 			else
 			{

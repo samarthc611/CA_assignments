@@ -26,7 +26,6 @@ public class InstructionFetch {
 		{
 			
 			// System.out.println(EX_IF_Latch.isIF_enable());
-			System.out.println("IF is ON");
 			if(EX_IF_Latch.isIF_enable()){
 
 					// System.out.print("is branch taken?");
@@ -39,20 +38,15 @@ public class InstructionFetch {
 						System.out.println(currentPC);
 						System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
 						EX_IF_Latch.setIsBRanchTaken(false);
-					}		
+					}
+					else
+						containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
+								
 			}
 			else
 			{
 				currentPC = containingProcessor.getRegisterFile().getProgramCounter();
-				if(IF_OF_Latch.is_Stall()){
-					containingProcessor.getRegisterFile().setProgramCounter(currentPC);
-					System.out.println("stalled");
-				}
-				else{
-					
-					containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
-					System.out.println("not stall");
-				}
+				containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
 				System.out.print("currentPC=");
 				System.out.println(currentPC);
 			}
@@ -62,15 +56,15 @@ public class InstructionFetch {
 			// currentPC = containingProcessor.getRegisterFile().getProgramCounter();
 			// System.out.println(currentPC);
 			int newInstruction = containingProcessor.getMainMemory().getWord(currentPC);
-			System.out.print("the instruction in IF is ");
-			System.out.println(newInstruction);
-
+			// System.out.print("the instruction is ");
+			// System.out.println(newInstruction);
 			IF_OF_Latch.setInstruction(newInstruction); // pc to be stored in latch or not?
 		    // System.out.println(IF_OF_Latch.getInstruction());
 			IF_OF_Latch.setPC(currentPC);
+
 			
 			
-			// IF_EnableLatch.setIF_enable(false);
+			IF_EnableLatch.setIF_enable(false);
 			IF_OF_Latch.setOF_enable(true);
 			EX_IF_Latch.setIF_enable(false); // doubt
 		}

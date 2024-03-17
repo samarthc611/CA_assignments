@@ -214,10 +214,10 @@ public class Execute {
 				// int temp1 = OF_EX_Latch.getRd();
 				// System.out.println("temp1 :");
 				// System.out.println(temp1);
-				rd = OF_EX_Latch.getEX_rd();
+				rd = OF_EX_Latch.getRd();
 				EX_MA_Latch.setMA_enable(true);
 				EX_MA_Latch.setRd(rd);
-				
+
 				// System.out.println(EX_MA_Latch.getRd());
 				// OF_EX_Latch.setRd(40);
 				// System.out.println(OF_EX_Latch.getRd());
@@ -265,16 +265,12 @@ public class Execute {
 				int op2 = OF_EX_Latch.getOp2();
 				
 				
-				rd = OF_EX_Latch.getEX_rd();
-				System.out.println("EX_rd= :");
+				rd = OF_EX_Latch.getRd();
+				System.out.println("sdfsd :");
 				System.out.println(rd);
 				// EX_MA_Latch.setRd(rdI);
 				EX_MA_Latch.setRd(rd);
-
-				OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
-				OF_EX_Latch.setMA_rd(rd);
-				OF_EX_Latch.setEX_rd(0);
-				// System.out.println(EX_MA_Latch.getRd());
+				System.out.println(EX_MA_Latch.getRd());
 				
 				System.out.print("op1 & op2 EX=");
 				System.out.println(op1);
