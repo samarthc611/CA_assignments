@@ -293,7 +293,8 @@ public class Execute {
 				System.out.print("ALU result EX=");
 				System.out.println(aluresult);
 				isBranchTaken = false;
-				checkBranchtaken(op1, op2);
+				// if(EX_MA_Latch.getInstruction() != instruction)
+					checkBranchtaken(op1, op2);
 				// System.out.print("isbranchTaken=");
 				// System.out.println(isBranchTaken);
 

@@ -96,7 +96,7 @@ public class OperandFetch {
 		this.IF_OF_Latch = iF_OF_Latch;
 		this.OF_EX_Latch = oF_EX_Latch;
 	}
-	
+	// int count_branching = 0;
 	public void performOF()
 	{
 		if(IF_OF_Latch.isOF_enable())
@@ -241,6 +241,9 @@ public class OperandFetch {
 			}
 			// if(OF_EX_Latch.getEX_op() != null){
 			if(
+				// (OF_EX_Latch.getInstruction() != instruction)&&
+				(
+				(OF_EX_Latch.getCount_branching() ==1) ||
 				(OF_EX_Latch.getEX_rd() == rs1_val && rs1_val !=0 )|| 
 				(OF_EX_Latch.getEX_rd() == rs2_val && rs2_val !=0) || 
 				(OF_EX_Latch.getMA_rd() == rs2_val && rs2_val !=0 )|| 
@@ -253,11 +256,18 @@ public class OperandFetch {
 				((OF_EX_Latch.getMA_op() != null) && (OF_EX_Latch.getMA_op().equals("00110") || OF_EX_Latch.getMA_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) || 
 				
 				((OF_EX_Latch.getRW_op() != null) && (OF_EX_Latch.getRW_op().equals("00110") || OF_EX_Latch.getRW_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31))
-			
+				
+				)
 			){
+				// count_branching=0;
 				OF_EX_Latch.setInstruction(0);
 				System.out.println("Bubble added in OF");
 				IF_OF_Latch.set_Stall(true);
+				if(OF_EX_Latch.getCount_branching() == 1){
+					IF_OF_Latch.set_Stall(false);
+					// count_branching = 0;
+					OF_EX_Latch.setCount_branching(0);
+				}
 				IF_OF_Latch.setOF_enable(true);
 				OF_EX_Latch.setEX_enable(true);
 				// OF_EX_Latch.setRd(40);
@@ -290,6 +300,17 @@ public class OperandFetch {
 			// }
 			// }
 			else{
+				if(opcode.equals("11000")|| opcode.equals("11001") || opcode.equals("11010") || opcode.equals("11011")){
+					if(OF_EX_Latch.getCount_branching() == 0){
+						containingProcessor.getRegisterFile().setProgramCounter(pc - 1);
+						// count_branching++;
+						OF_EX_Latch.setCount_branching(1);
+					}
+					else{
+						// count_branching = 0;
+						OF_EX_Latch.setCount_branching(0);
+					}
+				}
 				IF_OF_Latch.set_Stall(false);
 				System.out.println("no bubble was needed");
 				op1 = containingProcessor.getRegisterFile().getValue(rs1_val);
@@ -321,12 +342,28 @@ public class OperandFetch {
 				IF_OF_Latch.setOF_enable(true);
 				OF_EX_Latch.setEX_enable(true);
 
-
+				// if(opcode.equals("11000")|| opcode.equals("11001") || opcode.equals("11010") || opcode.equals("11011")){
+				// 	if(count_branching == 0){
+				// 		containingProcessor.getRegisterFile().setProgramCounter(pc - 1);
+				// 		count_branching++;
+				// 	}
+				// 	else{
+				// 		count_branching = 0;
+				// 	}
+				// }
 				// System.out.println(OF_EX_Latch.getOpcode());
 				// System.out.println(OF_EX_Latch.getOp1());
 				// System.out.println(OF_EX_Latch.getOp2());
 			}
-		
+			// if(opcode.equals("11000")|| opcode.equals("11001") || opcode.equals("11010") || opcode.equals("11011") || opcode.equals("11100")){
+			// 	if(count_branching < 1){
+			// 		containingProcessor.getRegisterFile().setProgramCounter(pc - 1);
+			// 		count_branching++;
+			// 	}
+			// 	else{
+			// 		count_branching = 0;
+			// 	}
+			// }
 		}
 	}
 
