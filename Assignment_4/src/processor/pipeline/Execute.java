@@ -131,6 +131,7 @@ public class Execute {
 	private static boolean isImmediate(String opcode){
 
     	String type = opcodeToType.get(opcode);
+		
 		if(type == null)
 		{
 			System.out.println("type is null");
@@ -208,15 +209,18 @@ public class Execute {
 		//TODO
 		// System.out.println("skbdi");
 		// System.out.println(OF_EX_Latch.isEX_enable());
+		System.out.println("test1 :");
 		if(OF_EX_Latch.isEX_enable()){
+			
 			if(OF_EX_Latch.getInstruction() == 0){
+				
 				EX_MA_Latch.setInstruction(0);
 				// int temp1 = OF_EX_Latch.getRd();
 				// System.out.println("temp1 :");
 				// System.out.println(temp1);
-				rd = OF_EX_Latch.getRd();
+				// rd = OF_EX_Latch.getRd();
 				EX_MA_Latch.setMA_enable(true);
-				EX_MA_Latch.setRd(rd);
+				// EX_MA_Latch.setRd(rd);
 
 				// System.out.println(EX_MA_Latch.getRd());
 				// OF_EX_Latch.setRd(40);
@@ -227,103 +231,124 @@ public class Execute {
 				// IF_OF_Latch.setOF_enable(true);
 			}
 			else{
-				// instruction = OF_EX_Latch.getInstruction();
-				// String instString = Integer.toBinaryString(instruction);
-				// String temp = "";
-				// int i = instString.length();
-				// System.out.print("i is: ");
-				// System.out.println(i);
-				// while(i < 32){
-				// 	temp+="0";
-				// 	i++;
-				// }
-				// temp+=instString;
-				// instString = temp;
-				// String rd;
-				String opcode = OF_EX_Latch.getOpcode();
-				// if(opcode.equals("10110")){
-				// 	rd = instString.substring(10, 15);
-				// 	rdI = Integer.parseUnsignedInt(rd, 2);
-				// }
-				// else if(opcodeToType.get(opcode).equals("r2i")){
-				// 	rd = instString.substring(10, 15);
-				// 	rdI = Integer.parseUnsignedInt(rd, 2);
-				// }
-				// else{
-				// 	rd = instString.substring(15, 20);
-				// 	rdI = Integer.parseUnsignedInt(rd, 2);
-				// }
-
-				
-				
-				
-				// System.out.print("opcode in EX=");
-				// System.out.println(opcode);
-				int imm = OF_EX_Latch.getImmx();
-				int branchtarget = OF_EX_Latch.getBranchTarget();
-				int op1 = OF_EX_Latch.getOp1();
-				int op2 = OF_EX_Latch.getOp2();
-				
-				
-				rd = OF_EX_Latch.getRd();
-				System.out.println("sdfsd :");
-				System.out.println(rd);
-				// EX_MA_Latch.setRd(rdI);
-				EX_MA_Latch.setRd(rd);
-				System.out.println(EX_MA_Latch.getRd());
-				
-				System.out.print("op1 & op2 EX=");
-				System.out.println(op1);
-				System.out.println(op2);
-				int instruction = OF_EX_Latch.getInstruction();
-
-				System.out.print("EX isImm=");
-				System.out.println(isImmediate(opcode));
-				
-				if(opcode.equals("10111")){
-					aluresult = ALU(op1, imm);
+				if(EX_MA_Latch.getIsBranchTaken()){
+					System.out.println("test2 :");
+					EX_MA_Latch.setInstruction(0);
+					EX_MA_Latch.setMA_enable(true);
+					OF_EX_Latch.setEX_enable(true);
+					EX_MA_Latch.setIsBRanchTaken(false);
 				}
-				if(isImmediate(opcode) && opcode.equals("10111")== false){
+				else{
+					// instruction = OF_EX_Latch.getInstruction();
+					// String instString = Integer.toBinaryString(instruction);
+					// String temp = "";
+					// int i = instString.length();
+					// System.out.print("i is: ");
+					// System.out.println(i);
+					// while(i < 32){
+					// 	temp+="0";
+					// 	i++;
+					// }
+					// temp+=instString;
+					// instString = temp;
+					// String rd;
+					String opcode = OF_EX_Latch.getOpcode();
+					// if(opcode.equals("10110")){
+					// 	rd = instString.substring(10, 15);
+					// 	rdI = Integer.parseUnsignedInt(rd, 2);
+					// }
+					// else if(opcodeToType.get(opcode).equals("r2i")){
+					// 	rd = instString.substring(10, 15);
+					// 	rdI = Integer.parseUnsignedInt(rd, 2);
+					// }
+					// else{
+					// 	rd = instString.substring(15, 20);
+					// 	rdI = Integer.parseUnsignedInt(rd, 2);
+					// }
+
 					
-					op2 = imm;
-				}
-				if(opcode.equals("10111") == false){
-					aluresult = ALU(op1, op2);
-				}
-				System.out.print("ALU result EX=");
-				System.out.println(aluresult);
-				isBranchTaken = false;
-				// if(EX_MA_Latch.getInstruction() != instruction)
+					
+					
+					// System.out.print("opcode in EX=");
+					// System.out.println(opcode);
+					int imm = OF_EX_Latch.getImmx();
+					int branchtarget = OF_EX_Latch.getBranchTarget();
+					int op1 = OF_EX_Latch.getOp1();
+					int op2 = OF_EX_Latch.getOp2();
+					
+					
+					rd = OF_EX_Latch.getRd();
+					System.out.println("sdfsd :");
+					System.out.println(rd);
+					// EX_MA_Latch.setRd(rdI);
+					EX_MA_Latch.setRd(rd);
+					System.out.println(EX_MA_Latch.getRd());
+					
+					System.out.print("op1 & op2 EX=");
+					System.out.println(op1);
+					System.out.println(op2);
+					int instruction = OF_EX_Latch.getInstruction();
+
+					System.out.print("EX isImm=");
+					System.out.println(isImmediate(opcode));
+					
+					if(opcode.equals("10111")){
+						aluresult = ALU(op1, imm);
+					}
+					if(isImmediate(opcode) && opcode.equals("10111")== false){
+						
+						op2 = imm;
+					}
+					if(opcode.equals("10111") == false){
+						aluresult = ALU(op1, op2);
+					}
+					System.out.print("ALU result EX=");
+					System.out.println(aluresult);
+					isBranchTaken = false;
 					checkBranchtaken(op1, op2);
-				// System.out.print("isbranchTaken=");
-				// System.out.println(isBranchTaken);
+					// System.out.print("isbranchTaken=");
+					// System.out.println(isBranchTaken);
 
-				OF_EX_Latch.setEX_enable(true);
-				EX_MA_Latch.setMA_enable(true);
-				if(isBranchTaken)
-					EX_IF_Latch.setIF_enable(true);
-				else
-					EX_IF_Latch.setIF_enable(false);
-				// System.out.print("is if enabled by EX::");
-				// System.out.println(EX_IF_Latch.isIF_enable());
-				// System.out.print("branchTarget EX=");
-				// System.out.println(branchtarget);
-				EX_IF_Latch.setBranchPC(branchtarget);
-				EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
+					OF_EX_Latch.setEX_enable(true);
+					EX_MA_Latch.setMA_enable(true);
+					if(isBranchTaken)
+						EX_IF_Latch.setIF_enable(true);
+					else
+						EX_IF_Latch.setIF_enable(false);
+					// System.out.print("is if enabled by EX::");
+					// System.out.println(EX_IF_Latch.isIF_enable());
+					// System.out.print("branchTarget EX=");
+					// System.out.println(branchtarget);
 
-				EX_MA_Latch.setOp1(op1);
-				EX_MA_Latch.setOp2(op2);
-				EX_MA_Latch.setAluResult(aluresult);
-				EX_MA_Latch.setOpcode(opcode);
-				EX_MA_Latch.setInstruction(instruction);
-				EX_MA_Latch.setx31(x31);
-				// EX_MA_Latch.setRd(rd);
 
-				// System.out.println("Instruction is");
-				// System.out.println(EX_MA_Latch.getInstruction());
-				// System.out.println(EX_MA_Latch.getOpcode());
-				// System.out.println(EX_MA_Latch.getAluResult());
-				// System.out.println(EX_MA_Latch.getOp2());
+					System.out.println("pc in ex:");
+					System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
+				
+					EX_IF_Latch.setBranchPC(branchtarget);
+					EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
+					
+					System.out.println("branchtarget :");
+					System.out.println(branchtarget);
+
+					EX_MA_Latch.setOp1(op1);
+					EX_MA_Latch.setOp2(op2);
+					EX_MA_Latch.setAluResult(aluresult);
+					EX_MA_Latch.setOpcode(opcode);
+					System.out.println("putting below inst in EX_MA latch");
+					System.out.println(instruction);
+					EX_MA_Latch.setInstruction(instruction);
+					EX_MA_Latch.setx31(x31);
+					// EX_MA_Latch.setRd(rd);
+
+
+					EX_MA_Latch.setIsBRanchTaken(isBranchTaken);
+					OF_EX_Latch.setIsBRanchTaken(isBranchTaken);
+					// System.out.println("Instruction is");
+					// System.out.println(EX_MA_Latch.getInstruction());
+					// System.out.println(EX_MA_Latch.getOpcode());
+					// System.out.println(EX_MA_Latch.getAluResult());
+					// System.out.println(EX_MA_Latch.getOp2());
+				}
 			}
 		}
 	}

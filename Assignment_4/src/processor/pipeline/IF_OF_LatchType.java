@@ -4,12 +4,14 @@ public class IF_OF_LatchType {
 	
 	boolean OF_enable,stall;
 	int instruction;
-	
+	boolean isBranchTaken;
 	int pc;
+	boolean closeIF;
 	
 	public IF_OF_LatchType()
 	{
 		OF_enable = false;
+		closeIF = false;
 	}
 
 	public boolean isOF_enable() {
@@ -40,6 +42,13 @@ public class IF_OF_LatchType {
 	}
 	public int getPC(){
 		return pc;
+	}
+	public boolean getIsBranchTaken() {
+		return isBranchTaken;
+	}
+
+	public void setIsBRanchTaken(boolean isBranchTaken) {
+		this.isBranchTaken = isBranchTaken;
 	}
 
 }

@@ -14,7 +14,8 @@ public class OF_EX_LatchType {
 	int EX_rd;
 	int MA_rd;
 	int RW_rd;
-	int count_branching;
+
+	boolean isBranchTaken;
 
 	String EX_op;
 	String MA_op;
@@ -23,7 +24,6 @@ public class OF_EX_LatchType {
 	public OF_EX_LatchType()
 	{
 		EX_enable = false;
-		count_branching = 0;
 		// opcode="11111";
 	}
 
@@ -145,10 +145,11 @@ public class OF_EX_LatchType {
 		return RW_op;
 	}
 
-	public void setCount_branching(int count_branching){
-		this.count_branching = count_branching;
+	public boolean getIsBranchTaken() {
+		return isBranchTaken;
 	}
-	public int getCount_branching(){
-		return count_branching;
+
+	public void setIsBRanchTaken(boolean isBranchTaken) {
+		this.isBranchTaken = isBranchTaken;
 	}
 }

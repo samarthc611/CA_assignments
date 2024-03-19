@@ -10,6 +10,7 @@ public class EX_MA_LatchType {
     String opcode;
     int x31;
     int rd ;
+    boolean isBranchTaken;
 
     // Constructor
     public EX_MA_LatchType() {
@@ -73,4 +74,11 @@ public class EX_MA_LatchType {
     public int getx31(){
         return x31;
     }
+    public boolean getIsBranchTaken() {
+		return isBranchTaken;
+	}
+
+	public void setIsBRanchTaken(boolean isBranchTaken) {
+		this.isBranchTaken = isBranchTaken;
+	}
 }
