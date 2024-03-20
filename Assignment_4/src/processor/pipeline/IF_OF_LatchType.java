@@ -7,11 +7,13 @@ public class IF_OF_LatchType {
 	boolean isBranchTaken;
 	int pc;
 	boolean closeIF;
+	int instCount;
 	
 	public IF_OF_LatchType()
 	{
 		OF_enable = false;
 		closeIF = false;
+		instCount = 0;
 	}
 
 	public boolean isOF_enable() {

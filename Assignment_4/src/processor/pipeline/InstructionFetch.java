@@ -29,6 +29,8 @@ public class InstructionFetch {
 				IF_OF_Latch.setInstruction(0);
 				IF_OF_Latch.setOF_enable(true);
 				IF_OF_Latch.setIsBRanchTaken(false);
+				IF_OF_Latch.instCount++;
+				Simulator.setNoofInsts(IF_OF_Latch.instCount);
 			}
 			else{
 				// System.out.println(EX_IF_Latch.isIF_enable());
@@ -73,8 +75,10 @@ public class InstructionFetch {
 					System.out.println(currentPC);
 				}
 					// containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
-				instcount++;
-				Simulator.setNoofInsts(instcount);
+				// instcount++;
+				// Simulator.setNoofInsts(instcount);
+				IF_OF_Latch.instCount++;
+				Simulator.setNoofInsts(IF_OF_Latch.instCount);
 				// currentPC = containingProcessor.getRegisterFile().getProgramCounter();
 				// System.out.println(currentPC);
 				int newInstruction = containingProcessor.getMainMemory().getWord(currentPC);
