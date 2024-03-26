@@ -99,13 +99,23 @@ public class OperandFetch {
 	
 	public void performOF()
 	{
+		// if(IF_OF_Latch.isOF_busy() == false)
+		// {
+		// 	if(IF_OF_Latch.isIF_busy())
+		// 	{
+		// 		System.out.println("IF is busy, OF is free");
+		// 		OF_EX_Latch.setEX_enable(false);
+		// 		// ()
+		// 	}
+		// }
+		// else 
 		if(IF_OF_Latch.isOF_enable())
 		{
 			//TODO
-			if(OF_EX_Latch.getIsBranchTaken()){
+			if(OF_EX_Latch.getIsBranchTaken()){ //unable to understand this part of code. comments daalne chiye the :(
 				OF_EX_Latch.setInstruction(0);
 				IF_OF_Latch.setIsBRanchTaken(true);
-				IF_OF_Latch.setOF_enable(true);
+				IF_OF_Latch.setOF_enable(false);
 				OF_EX_Latch.setEX_enable(true);
 				OF_EX_Latch.setIsBRanchTaken(false);
 			}
@@ -115,7 +125,7 @@ public class OperandFetch {
 					OF_EX_Latch.setEX_enable(true);
 					System.out.println("     ************recieved bubble from IF i am in OF");
 				
-					IF_OF_Latch.setOF_enable(true);
+					IF_OF_Latch.setOF_enable(false);
 				}
 				else{
 					if(IF_OF_Latch.is_Stall()==false){
@@ -224,19 +234,19 @@ public class OperandFetch {
 					// OF_EX_Latch.setEX_enable(true);
 					if(Clock.getCurrentTime() == 1){
 						// OF_EX_Latch = new OF_EX_LatchType();
-						EX_MA_Latch = new EX_MA_LatchType();
-						MA_RW_Latch = new MA_RW_LatchType();
+						// EX_MA_Latch = new EX_MA_LatchType();
+						// MA_RW_Latch = new MA_RW_LatchType();
 						// OF_EX_Latch.setRd(40);
-						EX_MA_Latch.setRd(90);
-						MA_RW_Latch.setRd(40);
+						// EX_MA_Latch.setRd(90);
+						// MA_RW_Latch.setRd(40);
 						OF_EX_Latch.setRW_rd(40);
 						OF_EX_Latch.setMA_rd(90);
 					}
 					if(Clock.getCurrentTime() == 2){
 						// EX_MA_Latch = new EX_MA_LatchType();
-						MA_RW_Latch = new MA_RW_LatchType();
+						// MA_RW_Latch = new MA_RW_LatchType();
 						// EX_MA_Latch.setRd(40);
-						MA_RW_Latch.setRd(40);
+						// MA_RW_Latch.setRd(40);
 						OF_EX_Latch.setRW_rd(40);
 					}
 					// if(Clock.getCurrentTime() == 3){
@@ -280,7 +290,7 @@ public class OperandFetch {
 						System.out.println("Bubble added in OF");
 						IF_OF_Latch.set_Stall(true);
 						OF_EX_Latch.setBranchTarget(branchTarget);
-						IF_OF_Latch.setOF_enable(true);
+						IF_OF_Latch.setOF_enable(false);
 						OF_EX_Latch.setEX_enable(true);
 						// OF_EX_Latch.setRd(40);
 

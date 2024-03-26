@@ -209,9 +209,9 @@ public class Execute {
 		//TODO
 		// System.out.println("skbdi");
 		// System.out.println(OF_EX_Latch.isEX_enable());
-		System.out.println("test1 :");
+		// System.out.println("test1 :");
 		if(OF_EX_Latch.isEX_enable()){
-			
+			System.out.println("EX is ON");
 			if(OF_EX_Latch.getInstruction() == 0){
 				
 				EX_MA_Latch.setInstruction(0);
@@ -227,7 +227,7 @@ public class Execute {
 				// System.out.println(OF_EX_Latch.getRd());
 				System.out.println("     ************recieved bubble from OF i am in Ex");
 				
-				OF_EX_Latch.setEX_enable(true);
+				OF_EX_Latch.setEX_enable(false);
 				// IF_OF_Latch.setOF_enable(true);
 			}
 			else{
@@ -235,7 +235,7 @@ public class Execute {
 					System.out.println("test2 :");
 					EX_MA_Latch.setInstruction(0);
 					EX_MA_Latch.setMA_enable(true);
-					OF_EX_Latch.setEX_enable(true);
+					OF_EX_Latch.setEX_enable(false);
 					EX_MA_Latch.setIsBRanchTaken(false);
 				}
 				else{
@@ -278,7 +278,7 @@ public class Execute {
 					
 					
 					rd = OF_EX_Latch.getRd();
-					System.out.println("sdfsd :");
+					System.out.println("rd in EX is :");
 					System.out.println(rd);
 					// EX_MA_Latch.setRd(rdI);
 					EX_MA_Latch.setRd(rd);

@@ -139,7 +139,7 @@ public class RegisterWrite {
 				System.out.println("     ************recieved bubble from MA i am in RW");
 				
 				MA_RW_Latch.setRW_enable(false);
-				IF_OF_Latch.setOF_enable(true);
+				// IF_OF_Latch.setOF_enable(true);
 				
 			}
 			else{

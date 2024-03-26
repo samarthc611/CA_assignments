@@ -93,7 +93,7 @@ public class Simulator {
 			processor.getRWUnit().performRW();
 			processor.getMAUnit().performMA();
 			processor.getEXUnit().performEX();
-			// eventQueue.processEvents();
+			eventQueue.processEvents();
 			processor.getOFUnit().performOF();
 			processor.getIFUnit().performIF();
 			Clock.incrementClock();
@@ -101,7 +101,7 @@ public class Simulator {
 			System.out.println("***********cycles: ");
 			System.out.println(Clock.getCurrentTime());
 			// if(cycles == 30)
-			// 	setSimulationComplete(true);
+				// setSimulationComplete(true);
 		}
 		// processor.getRegisterFile().setProgramCounter(processor.getRegisterFile().getProgramCounter() - 2);
 		System.out.println("Memory for fibo:");

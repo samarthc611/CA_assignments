@@ -9,6 +9,7 @@ public class IF_OF_LatchType {
 	boolean closeIF;
 	int instCount;
 	boolean OF_busy;
+	boolean IF_busy;
 	
 	public IF_OF_LatchType()
 	{
@@ -23,6 +24,13 @@ public class IF_OF_LatchType {
 	}
 	public void setOF_busy(boolean value){
 		OF_busy = value;
+	}
+
+	public boolean isIF_busy(){
+		return IF_busy;
+	}
+	public void setIF_busy(boolean value){
+		IF_busy = value;
 	}
 
 	public boolean isOF_enable() {
