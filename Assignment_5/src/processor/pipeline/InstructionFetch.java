@@ -55,7 +55,7 @@ public class InstructionFetch implements Element {
 							containingProcessor.getRegisterFile().setProgramCounter(EX_IF_Latch.getBranchPC()); // doubt
 							// System.out.print("next pc set in IF:");
 							currentPC = containingProcessor.getRegisterFile().getProgramCounter();
-							System.out.print("currentPC=");
+							System.out.print("currentPC(EX enabled IF)=");
 							System.out.println(currentPC);
 							System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
 							EX_IF_Latch.setIsBRanchTaken(false);
@@ -72,7 +72,7 @@ public class InstructionFetch implements Element {
 						
 						containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
 						System.out.println("not stall");
-						IF_OF_Latch.setPC(currentPC);
+						// IF_OF_Latch.setPC(currentPC);
 					}
 					System.out.print("currentPC=");
 					System.out.println(currentPC);
@@ -139,9 +139,13 @@ public class InstructionFetch implements Element {
 		else {
 			
 			// else{
+			// MemoryReadEvent event_temp = (MemoryReadEvent) e;
+			// int pc = event_temp.getAddressToReadFrom();
 			MemoryResponseEvent event = (MemoryResponseEvent) e ;
 			System.out.println("IF Event Handled");
 			IF_OF_Latch.setInstruction(event.getValue());
+			// System.out.println(event.g);
+			IF_OF_Latch.setPC(containingProcessor.getRegisterFile().getProgramCounter() - 1);
 
 			IF_EnableLatch.setIF_busy(false);
 			IF_OF_Latch.setIF_busy(false);

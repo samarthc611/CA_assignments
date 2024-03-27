@@ -2,7 +2,7 @@ package processor.pipeline;
 
 import java.util.HashMap;
 import processor.Clock;
-
+import configuration.*;
 import processor.Processor;
 
 public class OperandFetch {
@@ -232,7 +232,7 @@ public class OperandFetch {
 					System.out.print("rd : ");
 					System.out.println(rdI);
 					// OF_EX_Latch.setEX_enable(true);
-					if(Clock.getCurrentTime() == 1){
+					if(Clock.getCurrentTime() <= Configuration.mainMemoryLatency + 1){
 						// OF_EX_Latch = new OF_EX_LatchType();
 						// EX_MA_Latch = new EX_MA_LatchType();
 						// MA_RW_Latch = new MA_RW_LatchType();
@@ -242,7 +242,7 @@ public class OperandFetch {
 						OF_EX_Latch.setRW_rd(40);
 						OF_EX_Latch.setMA_rd(90);
 					}
-					if(Clock.getCurrentTime() == 2){
+					if(Clock.getCurrentTime() <= Configuration.mainMemoryLatency + 2){
 						// EX_MA_Latch = new EX_MA_LatchType();
 						// MA_RW_Latch = new MA_RW_LatchType();
 						// EX_MA_Latch.setRd(40);
@@ -364,6 +364,8 @@ public class OperandFetch {
 					}
 				}
 			}
+			IF_OF_Latch.setOF_enable(false);
+			OF_EX_Latch.setEX_enable(true);
 		
 		}
 	}

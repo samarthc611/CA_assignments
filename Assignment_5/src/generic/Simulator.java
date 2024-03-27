@@ -100,8 +100,8 @@ public class Simulator {
 			cycles += 1;
 			System.out.println("***********cycles: ");
 			System.out.println(Clock.getCurrentTime());
-			// if(cycles == 30)
-				// setSimulationComplete(true);
+			// if(cycles == 20)
+			// 	setSimulationComplete(true);
 		}
 		// processor.getRegisterFile().setProgramCounter(processor.getRegisterFile().getProgramCounter() - 2);
 		System.out.println("Memory for fibo:");
