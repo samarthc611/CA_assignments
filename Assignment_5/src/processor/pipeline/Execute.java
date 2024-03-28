@@ -322,7 +322,8 @@ public class Execute {
 
 
 					System.out.println("pc in ex:");
-					System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
+					// System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
+					System.out.println(OF_EX_Latch.getPC());
 				
 					EX_IF_Latch.setBranchPC(branchtarget);
 					EX_IF_Latch.setIsBRanchTaken(isBranchTaken);

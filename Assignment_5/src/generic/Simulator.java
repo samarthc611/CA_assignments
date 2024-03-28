@@ -90,6 +90,8 @@ public class Simulator {
 		
 		while(simulationComplete == false)
 		{
+			System.out.println("***********cycle number: ");
+			System.out.println(Clock.getCurrentTime());
 			processor.getRWUnit().performRW();
 			processor.getMAUnit().performMA();
 			processor.getEXUnit().performEX();
@@ -98,9 +100,8 @@ public class Simulator {
 			processor.getIFUnit().performIF();
 			Clock.incrementClock();
 			cycles += 1;
-			System.out.println("***********cycles: ");
-			System.out.println(Clock.getCurrentTime());
-			// if(cycles == 20)
+			
+			// if(cycles == 30)
 			// 	setSimulationComplete(true);
 		}
 		// processor.getRegisterFile().setProgramCounter(processor.getRegisterFile().getProgramCounter() - 2);

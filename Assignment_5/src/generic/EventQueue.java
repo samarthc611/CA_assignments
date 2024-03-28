@@ -19,6 +19,14 @@ public class EventQueue {
 		queue.add(event);
 	}
 
+	public int getSize(){
+		return queue.size();
+	}
+
+	// public Event getEventAtIndex(int i){
+	// 	return queue[i];
+	// }
+
 	public void processEvents()
 	{
 		while(queue.isEmpty() == false && queue.peek().getEventTime() <= Clock.getCurrentTime())

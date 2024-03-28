@@ -3,7 +3,10 @@ package processor.pipeline;
 import java.util.HashMap;
 import processor.Clock;
 import configuration.*;
+import generic.MemoryReadEvent;
+import generic.Simulator;
 import processor.Processor;
+import processor.*;
 
 public class OperandFetch {
 	Processor containingProcessor;
@@ -112,14 +115,14 @@ public class OperandFetch {
 		if(IF_OF_Latch.isOF_enable())
 		{
 			//TODO
-			if(OF_EX_Latch.getIsBranchTaken()){ //unable to understand this part of code. comments daalne chiye the :(
-				OF_EX_Latch.setInstruction(0);
-				IF_OF_Latch.setIsBRanchTaken(true);
-				IF_OF_Latch.setOF_enable(false);
-				OF_EX_Latch.setEX_enable(true);
-				OF_EX_Latch.setIsBRanchTaken(false);
-			}
-			else{
+			// if(OF_EX_Latch.getIsBranchTaken()){ //unable to understand this part of code. comments daalne chiye the :(
+			// 	// OF_EX_Latch.setInstruction(0);
+			// 	IF_OF_Latch.setIsBRanchTaken(true);
+			// 	IF_OF_Latch.setOF_enable(false);
+			// 	OF_EX_Latch.setEX_enable(true);
+			// 	OF_EX_Latch.setIsBRanchTaken(false);
+			// }
+			// else{
 				if(IF_OF_Latch.getInstruction() == 0 && (IF_OF_Latch.is_Stall()==false)){
 					OF_EX_Latch.setInstruction(0);
 					OF_EX_Latch.setEX_enable(true);
@@ -159,9 +162,16 @@ public class OperandFetch {
 					System.out.print("instString OF=");
 					System.out.println(instString); //working correct
 					String opcode = instString.substring(0, 5);
-					// if(opcode.equals("11101")){
-						
-					// }
+
+					if(opcode.equals("11000")||
+						opcode.equals("11001")||
+						opcode.equals("11010")||
+						opcode.equals("11011")||
+						opcode.equals("11100")){
+							IF_OF_Latch.setIsBRanchTaken(true); //misnomer alert. it should be set is branch instruction? then put 1 bubble
+							
+					
+					}
 					String immstr = instString.substring(15, 32);
 					// if(getType.get(opcode).equals("r2i") || getType.get(opcode).equals("r2i_ldst") || getType.get(opcode).equals("r2i_b")){
 					// 	immstr = instString.substring(15, 32);
@@ -269,39 +279,48 @@ public class OperandFetch {
 					System.out.println(((OF_EX_Latch.getEX_op().equals("00110") || OF_EX_Latch.getEX_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)));
 					}
 					// if(OF_EX_Latch.getEX_op() != null){
-					if(
-						(OF_EX_Latch.getEX_rd() == rs1_val && rs1_val !=0 )|| 
-						(OF_EX_Latch.getEX_rd() == rs2_val && rs2_val !=0) || 
-						(OF_EX_Latch.getMA_rd() == rs2_val && rs2_val !=0 )|| 
-						(OF_EX_Latch.getMA_rd() == rs1_val && rs1_val !=0) || 
-						(OF_EX_Latch.getRW_rd()== rs2_val && rs2_val !=0) || 
-						(OF_EX_Latch.getRW_rd() == rs1_val && rs1_val !=0) ||
-						
-						((OF_EX_Latch.getEX_op() != null) && ((OF_EX_Latch.getEX_op().equals("00110") || OF_EX_Latch.getEX_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31))) ||
-						
-						((OF_EX_Latch.getMA_op() != null) && (OF_EX_Latch.getMA_op().equals("00110") || OF_EX_Latch.getMA_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) || 
-						
-						((OF_EX_Latch.getRW_op() != null) && (OF_EX_Latch.getRW_op().equals("00110") || OF_EX_Latch.getRW_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) 
 
-						// if(OF_EX_Latch.getEX_op().equals("11100") ||)
+
+						//bubble adding code:
+
+
+					// if(
+					// 	(OF_EX_Latch.getEX_rd() == rs1_val && rs1_val !=0 )|| 
+					// 	(OF_EX_Latch.getEX_rd() == rs2_val && rs2_val !=0) || 
+					// 	(OF_EX_Latch.getMA_rd() == rs2_val && rs2_val !=0 )|| 
+					// 	(OF_EX_Latch.getMA_rd() == rs1_val && rs1_val !=0) || 
+					// 	(OF_EX_Latch.getRW_rd()== rs2_val && rs2_val !=0) || 
+					// 	(OF_EX_Latch.getRW_rd() == rs1_val && rs1_val !=0) ||
+						
+					// 	((OF_EX_Latch.getEX_op() != null) && ((OF_EX_Latch.getEX_op().equals("00110") || OF_EX_Latch.getEX_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31))) ||
+						
+					// 	((OF_EX_Latch.getMA_op() != null) && (OF_EX_Latch.getMA_op().equals("00110") || OF_EX_Latch.getMA_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) || 
+						
+					// 	((OF_EX_Latch.getRW_op() != null) && (OF_EX_Latch.getRW_op().equals("00110") || OF_EX_Latch.getRW_op().equals("00111")) && (rs1_val == 31 || rs2_val == 31)) 
+
+					// 	// if(OF_EX_Latch.getEX_op().equals("11100") ||)
 					
-					){
-						OF_EX_Latch.setInstruction(0);
-						System.out.println("Bubble added in OF");
-						IF_OF_Latch.set_Stall(true);
-						OF_EX_Latch.setBranchTarget(branchTarget);
-						IF_OF_Latch.setOF_enable(false);
-						OF_EX_Latch.setEX_enable(true);
-						// OF_EX_Latch.setRd(40);
+					// ){
+					// 	OF_EX_Latch.setInstruction(0);
+					// 	System.out.println("Bubble added in OF");
+					// 	IF_OF_Latch.set_Stall(true);
+					// 	OF_EX_Latch.setBranchTarget(branchTarget);
+					// 	IF_OF_Latch.setOF_enable(false);
+					// 	OF_EX_Latch.setEX_enable(true);
+					// 	// OF_EX_Latch.setRd(40);
 
-						OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
-						OF_EX_Latch.setMA_rd(OF_EX_Latch.getEX_rd());
-						OF_EX_Latch.setEX_rd(40);
+					// 	OF_EX_Latch.setRW_rd(OF_EX_Latch.getMA_rd());
+					// 	OF_EX_Latch.setMA_rd(OF_EX_Latch.getEX_rd());
+					// 	OF_EX_Latch.setEX_rd(40);
 
-						OF_EX_Latch.setRW_op(OF_EX_Latch.getMA_op());
-						OF_EX_Latch.setMA_op(OF_EX_Latch.getEX_op());
-						OF_EX_Latch.setEX_op("null");
-					}
+					// 	OF_EX_Latch.setRW_op(OF_EX_Latch.getMA_op());
+					// 	OF_EX_Latch.setMA_op(OF_EX_Latch.getEX_op());
+					// 	OF_EX_Latch.setEX_op("null");
+					// }
+
+
+
+
 					// if((OF_EX_Latch.getRd() == rs1_val && rs1_val !=0 )|| (OF_EX_Latch.getRd() == rs2_val && rs2_val !=0) || (EX_MA_Latch.getRd() == rs1_val && rs1_val !=0 )|| (EX_MA_Latch.getRd() == rs2_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs1_val && rs1_val !=0) || (MA_RW_Latch.getRd() == rs2_val && rs1_val !=0) || (rs1_val != 31 && rs2_val != 31)){
 					// 	OF_EX_Latch.setInstruction(0);
 					// 	System.out.println("Bubble added in OF");
@@ -321,7 +340,7 @@ public class OperandFetch {
 					// 	System.out.println("OFstuck");
 					// }
 					// }
-					else{
+					// else{
 						IF_OF_Latch.set_Stall(false);
 						System.out.println("no bubble was needed");
 						op1 = containingProcessor.getRegisterFile().getValue(rs1_val);
@@ -361,9 +380,9 @@ public class OperandFetch {
 						// System.out.println(OF_EX_Latch.getOpcode());
 						// System.out.println(OF_EX_Latch.getOp1());
 						// System.out.println(OF_EX_Latch.getOp2());
-					}
+					// }
 				}
-			}
+			// }
 			IF_OF_Latch.setOF_enable(false);
 			OF_EX_Latch.setEX_enable(true);
 		

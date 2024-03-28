@@ -26,15 +26,26 @@ public class InstructionFetch implements Element {
 		this.EX_IF_Latch = eX_IF_Latch;
 	}
 	int currentPC;
+	int count = 0;
 	public void performIF()
 	{
 		
 		if(IF_EnableLatch.isIF_enable() && IF_OF_Latch.closeIF == false)
 		{
 			System.out.println("IF is ON");
+			// if(IF_OF_Latch.getIsBranchTaken()==true){
+			// 	Simulator.getEventQueue().addEvent(
+			// 			new MemoryReadEvent(
+			// 					Clock.getCurrentTime() - 2,
+			// 					this,
+			// 					containingProcessor.getMainMemory(),
+			// 					65535)
+			// 			);
+			// 	IF_OF_Latch.setIsBRanchTaken(false);
+			// }
 			if(IF_EnableLatch.isIF_busy() == false){
 				System.out.println("IF is not busy");
-				// IF_OF_Latch.setOF_enable(false);
+				IF_OF_Latch.setOF_enable(false);
 				if(IF_OF_Latch.getIsBranchTaken()){
 					IF_OF_Latch.setInstruction(0);
 					// IF_OF_Latch.setOF_enable(false);
@@ -60,6 +71,14 @@ public class InstructionFetch implements Element {
 							System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
 							EX_IF_Latch.setIsBRanchTaken(false);
 						}
+
+						Simulator.getEventQueue().addEvent(
+						new MemoryReadEvent(
+								Clock.getCurrentTime() + Configuration.mainMemoryLatency,
+								this,
+								containingProcessor.getMainMemory(),
+								currentPC)
+						);
 				}
 				else
 				{
@@ -67,26 +86,52 @@ public class InstructionFetch implements Element {
 					if(IF_OF_Latch.is_Stall()){
 						containingProcessor.getRegisterFile().setProgramCounter(currentPC);
 						System.out.println("stalled");
+						// count++;
 					}
 					else{
-						
+						// count = 0;
 						containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
 						System.out.println("not stall");
 						// IF_OF_Latch.setPC(currentPC);
+						// Simulator.getEventQueue().addEvent(
+						// new MemoryReadEvent(
+						// 		Clock.getCurrentTime() + Configuration.mainMemoryLatency,
+						// 		this,
+						// 		containingProcessor.getMainMemory(),
+						// 		currentPC)
+						// );
 					}
 					System.out.print("currentPC=");
 					System.out.println(currentPC);
-				}
-				IF_OF_Latch.instCount++;
-				Simulator.setNoofInsts(IF_OF_Latch.instCount);
 
-				Simulator.getEventQueue().addEvent(
+
+					Simulator.getEventQueue().addEvent(
 						new MemoryReadEvent(
 								Clock.getCurrentTime() + Configuration.mainMemoryLatency,
 								this,
 								containingProcessor.getMainMemory(),
 								currentPC)
-				);
+					);
+					
+				}
+				IF_OF_Latch.instCount++;
+				Simulator.setNoofInsts(IF_OF_Latch.instCount);
+
+				// for(int i = 0; i < Simulator.getEventQueue().getSize(); i++)
+				// {
+					// if(Simulator.getEventQueue().peek())
+				// }
+				// if(count <= 1)
+				// {
+				// Simulator.getEventQueue().addEvent(
+				// 		new MemoryReadEvent(
+				// 				Clock.getCurrentTime() + Configuration.mainMemoryLatency,
+				// 				this,
+				// 				containingProcessor.getMainMemory(),
+				// 				currentPC)
+				// );
+				// count++;
+				// }
 				IF_EnableLatch.setIF_busy(true);
 				IF_OF_Latch.setIF_busy(true);
 				IF_OF_Latch.setOF_enable(false);
@@ -116,6 +161,8 @@ public class InstructionFetch implements Element {
 			// IF_OF_Latch.setInstruction(0);
 			// IF_OF_Latch.setPC(currentPC);
 			IF_OF_Latch.setOF_enable(true);
+			IF_EnableLatch.setIF_busy(false);
+			IF_OF_Latch.setIF_busy(false);
 		}
 	}
 	@Override
