@@ -130,6 +130,13 @@ public class OperandFetch {
 				
 					IF_OF_Latch.setOF_enable(false);
 				}
+				else if(OF_EX_Latch.getIsBranchTaken() && IF_OF_Latch.getPC() != OF_EX_Latch.getBranchPC()){
+						OF_EX_Latch.setInstruction(0);
+						IF_OF_Latch.setInstruction(0);
+						OF_EX_Latch.setEX_enable(true);
+						IF_OF_Latch.setOF_enable(false);
+						OF_EX_Latch.setIsBRanchTaken(false);
+				}
 				else{
 					if(IF_OF_Latch.is_Stall()==false){
 
@@ -163,15 +170,15 @@ public class OperandFetch {
 					System.out.println(instString); //working correct
 					String opcode = instString.substring(0, 5);
 
-					if(opcode.equals("11000")||
-						opcode.equals("11001")||
-						opcode.equals("11010")||
-						opcode.equals("11011")||
-						opcode.equals("11100")){
-							IF_OF_Latch.setIsBRanchTaken(true); //misnomer alert. it should be set is branch instruction? then put 1 bubble
+					// if(opcode.equals("11000")||
+					// 	opcode.equals("11001")||
+					// 	opcode.equals("11010")||
+					// 	opcode.equals("11011")||
+					// 	opcode.equals("11100")){
+					// 		IF_OF_Latch.setIsBRanchTaken(true); //misnomer alert. it should be set is branch instruction? then put 1 bubble
 							
 					
-					}
+					// }
 					String immstr = instString.substring(15, 32);
 					// if(getType.get(opcode).equals("r2i") || getType.get(opcode).equals("r2i_ldst") || getType.get(opcode).equals("r2i_b")){
 					// 	immstr = instString.substring(15, 32);

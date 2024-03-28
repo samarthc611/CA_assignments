@@ -16,6 +16,7 @@ public class OF_EX_LatchType {
 	int RW_rd;
 
 	boolean isBranchTaken;
+	int branchPC;
 
 	String EX_op;
 	String MA_op;
@@ -162,5 +163,12 @@ public class OF_EX_LatchType {
 
 	public void setIsBRanchTaken(boolean isBranchTaken) {
 		this.isBranchTaken = isBranchTaken;
+	}
+
+	public void setBranchPC(int target){
+		this.branchPC = target;
+	}
+	public int getBranchPC(){
+		return branchPC;
 	}
 }

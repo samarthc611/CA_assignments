@@ -231,14 +231,14 @@ public class Execute {
 				// IF_OF_Latch.setOF_enable(true);
 			}
 			else{
-				if(EX_MA_Latch.getIsBranchTaken()){
-					System.out.println("test2 :");
-					EX_MA_Latch.setInstruction(0);
-					EX_MA_Latch.setMA_enable(true);
-					OF_EX_Latch.setEX_enable(false);
-					EX_MA_Latch.setIsBRanchTaken(false);
-				}
-				else{
+				// if(EX_MA_Latch.getIsBranchTaken()){
+				// 	System.out.println("test2 :");
+				// 	EX_MA_Latch.setInstruction(0);
+				// 	EX_MA_Latch.setMA_enable(true);
+				// 	OF_EX_Latch.setEX_enable(false);
+				// 	EX_MA_Latch.setIsBRanchTaken(false);
+				// }
+				// else{
 					// instruction = OF_EX_Latch.getInstruction();
 					// String instString = Integer.toBinaryString(instruction);
 					// String temp = "";
@@ -306,8 +306,9 @@ public class Execute {
 					System.out.println(aluresult);
 					isBranchTaken = false;
 					checkBranchtaken(op1, op2);
-					// System.out.print("isbranchTaken=");
-					// System.out.println(isBranchTaken);
+					System.out.print("isbranchTaken=");
+					System.out.println(isBranchTaken);
+					OF_EX_Latch.setIsBRanchTaken(isBranchTaken);
 
 					OF_EX_Latch.setEX_enable(false);
 					EX_MA_Latch.setMA_enable(true);
@@ -326,6 +327,7 @@ public class Execute {
 					System.out.println(OF_EX_Latch.getPC());
 				
 					EX_IF_Latch.setBranchPC(branchtarget);
+					OF_EX_Latch.setBranchPC(branchtarget);
 					EX_IF_Latch.setIsBRanchTaken(isBranchTaken);
 					
 					System.out.println("branchtarget :");
@@ -349,7 +351,7 @@ public class Execute {
 					// System.out.println(EX_MA_Latch.getOpcode());
 					// System.out.println(EX_MA_Latch.getAluResult());
 					// System.out.println(EX_MA_Latch.getOp2());
-				}
+				// }
 			}
 		}
 	}

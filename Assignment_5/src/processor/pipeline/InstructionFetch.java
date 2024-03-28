@@ -27,6 +27,7 @@ public class InstructionFetch implements Element {
 	}
 	int currentPC;
 	int count = 0;
+	int samePC = 0;
 	public void performIF()
 	{
 		
@@ -46,18 +47,18 @@ public class InstructionFetch implements Element {
 			if(IF_EnableLatch.isIF_busy() == false){
 				System.out.println("IF is not busy");
 				IF_OF_Latch.setOF_enable(false);
-				if(IF_OF_Latch.getIsBranchTaken()){
-					IF_OF_Latch.setInstruction(0);
-					// IF_OF_Latch.setOF_enable(false);
-					IF_OF_Latch.setIsBRanchTaken(false);
-					IF_OF_Latch.instCount++;
-					Simulator.setNoofInsts(IF_OF_Latch.instCount);
+				// if(IF_OF_Latch.getIsBranchTaken()){
+				// 	IF_OF_Latch.setInstruction(0);
+				// 	// IF_OF_Latch.setOF_enable(false);
+				// 	IF_OF_Latch.setIsBRanchTaken(false);
+				// 	IF_OF_Latch.instCount++;
+				// 	Simulator.setNoofInsts(IF_OF_Latch.instCount);
 		
-					IF_EnableLatch.setIF_busy(false);
-					IF_OF_Latch.setIF_busy(false);
-					IF_OF_Latch.setOF_enable(true);
-				}
-				else
+				// 	IF_EnableLatch.setIF_busy(false);
+				// 	IF_OF_Latch.setIF_busy(false);
+				// 	IF_OF_Latch.setOF_enable(true);
+				// }
+				// else
 				if(EX_IF_Latch.isIF_enable()){
 
 						// System.out.print("is branch taken?");
@@ -70,6 +71,7 @@ public class InstructionFetch implements Element {
 							System.out.println(currentPC);
 							System.out.println(containingProcessor.getRegisterFile().getProgramCounter());
 							EX_IF_Latch.setIsBRanchTaken(false);
+							samePC = 1;
 						}
 
 						Simulator.getEventQueue().addEvent(
@@ -90,6 +92,7 @@ public class InstructionFetch implements Element {
 					}
 					else{
 						// count = 0;
+						samePC = 0;
 						containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
 						System.out.println("not stall");
 						// IF_OF_Latch.setPC(currentPC);
@@ -192,7 +195,13 @@ public class InstructionFetch implements Element {
 			System.out.println("IF Event Handled");
 			IF_OF_Latch.setInstruction(event.getValue());
 			// System.out.println(event.g);
-			IF_OF_Latch.setPC(containingProcessor.getRegisterFile().getProgramCounter() - 1);
+			if(samePC == 0)
+				IF_OF_Latch.setPC(containingProcessor.getRegisterFile().getProgramCounter() - 1);
+			else if(samePC == 1)
+			{
+				IF_OF_Latch.setPC(containingProcessor.getRegisterFile().getProgramCounter());
+				samePC = 0;
+			}
 
 			IF_EnableLatch.setIF_busy(false);
 			IF_OF_Latch.setIF_busy(false);
