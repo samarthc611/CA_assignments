@@ -23,6 +23,7 @@ public class OF_EX_LatchType {
 	String RW_op;
 
 	boolean EX_busy;
+	boolean OF_busy;
 	
 	public OF_EX_LatchType()
 	{
@@ -37,6 +38,13 @@ public class OF_EX_LatchType {
 	}
 	public void setEX_busy(boolean value){
 		EX_busy = value;
+	}
+
+	public boolean isOF_busy(){
+		return OF_busy;
+	}
+	public void setOF_busy(boolean value){
+		OF_busy = value;
 	}
 
 	public boolean isEX_enable() {

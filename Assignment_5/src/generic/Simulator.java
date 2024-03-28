@@ -101,7 +101,7 @@ public class Simulator {
 			Clock.incrementClock();
 			cycles += 1;
 			
-			// if(cycles == 150)
+			// if(cycles == 50)
 			// 	setSimulationComplete(true);
 		}
 		// processor.getRegisterFile().setProgramCounter(processor.getRegisterFile().getProgramCounter() - 2);

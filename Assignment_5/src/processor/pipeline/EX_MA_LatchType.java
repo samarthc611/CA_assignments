@@ -10,7 +10,7 @@ public class EX_MA_LatchType {
     String opcode;
     int x31;
     int rd ;
-    boolean isBranchTaken, MA_busy;
+    boolean isBranchTaken, MA_busy, EX_busy;
 
     // Constructor
     public EX_MA_LatchType() {
@@ -25,6 +25,13 @@ public class EX_MA_LatchType {
     public void setMA_enable(boolean mA_enable) {
         MA_enable = mA_enable;
     }
+
+    public boolean isEX_busy(){
+		return EX_busy;
+	}
+	public void setEX_busy(boolean value){
+		EX_busy = value;
+	}
     
 
     public int getOp2() {

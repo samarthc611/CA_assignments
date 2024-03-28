@@ -111,9 +111,15 @@ public class OperandFetch {
 		// 		// ()
 		// 	}
 		// }
-		// else 
+		// else
+		IF_OF_Latch.setOF_busy(OF_EX_Latch.isOF_busy());
 		if(IF_OF_Latch.isOF_enable())
 		{
+			// System.out.println("IS OF busy?");
+			// System.out.println(IF_OF_Latch.isOF_busy());
+			// IF_OF_Latch.setOF_busy(OF_EX_Latch.isOF_busy());
+			if(IF_OF_Latch.isOF_busy() == false ){
+				System.out.println("OF is not busy");
 			//TODO
 			// if(OF_EX_Latch.getIsBranchTaken()){ //unable to understand this part of code. comments daalne chiye the :(
 			// 	// OF_EX_Latch.setInstruction(0);
@@ -394,6 +400,8 @@ public class OperandFetch {
 			OF_EX_Latch.setEX_enable(true);
 		
 		}
+		}
+	// }
 	}
 
 }
