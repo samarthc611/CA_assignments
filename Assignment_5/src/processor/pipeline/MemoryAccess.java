@@ -69,20 +69,20 @@ public class MemoryAccess implements Element{
 					EX_MA_Latch.setEX_busy(true);
 					// return;
 				} else if (opcode.equals("10111")) {
-					// int stWord = op2;
-					// Simulator.getEventQueue().addEvent(
-					// 		new MemoryWriteEvent(
-					// 				Clock.getCurrentTime() + Configuration.mainMemoryLatency,
-					// 				this,
-					// 				containingProcessor.getMainMemory(),
-					// 				aluresult,
-					// 				stWord)
-					// );
-					containingProcessor.getMainMemory().setWord(aluresult,op2);
-					System.out.println("MA Store Event Added");
+					int stWord = op2;
+					Simulator.getEventQueue().addEvent(
+							new MemoryWriteEvent(
+									Clock.getCurrentTime() + Configuration.mainMemoryLatency,
+									this,
+									containingProcessor.getMainMemory(),
+									aluresult,
+									stWord)
+					);
+					// containingProcessor.getMainMemory().setWord(aluresult,op2);
+					// System.out.println("MA Store Event Added");
 					// EX_MA_Latch.setMA_busy(true);
 					// EX_MA_Latch.setEX_busy(true);
-					MA_RW_Latch.setRW_enable(true);
+					MA_RW_Latch.setRW_enable(false);
 					EX_MA_Latch.setMA_enable(false);
 					// return;
 				}
@@ -151,10 +151,10 @@ public class MemoryAccess implements Element{
 		else{
 			MA_RW_Latch.setInstruction(0);
 			MA_RW_Latch.setRW_enable(true);
-		// EX_MA_Latch.setMA_busy(false);
-		// EX_MA_Latch.setEX_busy(false);
-		// EX_MA_Latch.setMA_enable(false);
-		// System.out.println("MA Store Event Handled");
+		EX_MA_Latch.setMA_busy(false);
+		EX_MA_Latch.setEX_busy(false);
+		EX_MA_Latch.setMA_enable(false);
+		System.out.println("MA Store Event Handled");
 		}
 		// EX_MA_Latch.setMA_busy(false);
 		// EX_MA_Latch.setEX_busy(false);
