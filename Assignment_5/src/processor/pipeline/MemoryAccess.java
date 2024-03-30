@@ -28,10 +28,10 @@ public class MemoryAccess implements Element{
 	String opcode;
 	public void performMA()
 	{
-		System.out.println("Is MA busy?:");
-		System.out.println(EX_MA_Latch.isMA_busy());
-		System.out.println("Is EX busy(as per MA)?:");
-		System.out.println(EX_MA_Latch.isEX_busy());
+		// System.out.println("Is MA busy?:");
+		// System.out.println(EX_MA_Latch.isMA_busy());
+		// System.out.println("Is EX busy(as per MA)?:");
+		// System.out.println(EX_MA_Latch.isEX_busy());
 		//TODO
 		if(EX_MA_Latch.isMA_enable()){
 			System.out.println("MA is ON");
@@ -69,19 +69,20 @@ public class MemoryAccess implements Element{
 					EX_MA_Latch.setEX_busy(true);
 					// return;
 				} else if (opcode.equals("10111")) {
-					int stWord = op2;
-					Simulator.getEventQueue().addEvent(
-							new MemoryWriteEvent(
-									Clock.getCurrentTime() + Configuration.mainMemoryLatency,
-									this,
-									containingProcessor.getMainMemory(),
-									aluresult,
-									stWord)
-					);
+					// int stWord = op2;
+					// Simulator.getEventQueue().addEvent(
+					// 		new MemoryWriteEvent(
+					// 				Clock.getCurrentTime() + Configuration.mainMemoryLatency,
+					// 				this,
+					// 				containingProcessor.getMainMemory(),
+					// 				aluresult,
+					// 				stWord)
+					// );
+					containingProcessor.getMainMemory().setWord(aluresult,op2);
 					System.out.println("MA Store Event Added");
-					EX_MA_Latch.setMA_busy(true);
-					EX_MA_Latch.setEX_busy(true);
-					MA_RW_Latch.setRW_enable(false);
+					// EX_MA_Latch.setMA_busy(true);
+					// EX_MA_Latch.setEX_busy(true);
+					MA_RW_Latch.setRW_enable(true);
 					EX_MA_Latch.setMA_enable(false);
 					// return;
 				}
@@ -147,6 +148,18 @@ public class MemoryAccess implements Element{
 			System.out.println("MA Load Event Handled");
 			EX_MA_Latch.setMA_enable(false);
 		}
+		else{
+			MA_RW_Latch.setInstruction(0);
+			MA_RW_Latch.setRW_enable(true);
+		// EX_MA_Latch.setMA_busy(false);
+		// EX_MA_Latch.setEX_busy(false);
+		// EX_MA_Latch.setMA_enable(false);
+		// System.out.println("MA Store Event Handled");
+		}
+		// EX_MA_Latch.setMA_busy(false);
+		// EX_MA_Latch.setEX_busy(false);
+		// EX_MA_Latch.setMA_enable(false);
+		// System.out.println("MA Store Event Handled");
 	}
 
 }

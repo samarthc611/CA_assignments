@@ -206,10 +206,10 @@ public class Execute {
 
 	public void performEX()
 	{
-		System.out.println("Is MA busy?(as per EX):");
-		System.out.println(EX_MA_Latch.isMA_busy());
-		System.out.println("Is EX busy?:");
-		System.out.println(EX_MA_Latch.isEX_busy());
+		// System.out.println("Is MA busy?(as per EX):");
+		// System.out.println(EX_MA_Latch.isMA_busy());
+		// System.out.println("Is EX busy?:");
+		// System.out.println(EX_MA_Latch.isEX_busy());
 
 		if(EX_MA_Latch.isEX_busy() == false){
 			OF_EX_Latch.setOF_busy(false);
@@ -225,7 +225,7 @@ public class Execute {
 			System.out.println("EX is ON");
 			OF_EX_Latch.setEX_busy(EX_MA_Latch.isEX_busy());
 			if(EX_MA_Latch.isEX_busy() == false){
-				OF_EX_Latch.setOF_busy(false);
+			// 	OF_EX_Latch.setOF_busy(false);
 			if(OF_EX_Latch.getInstruction() == 0){
 				
 				EX_MA_Latch.setInstruction(0);
