@@ -193,7 +193,7 @@ public class InstructionFetch implements Element {
 			// int pc = event_temp.getAddressToReadFrom();
 			MemoryResponseEvent event = (MemoryResponseEvent) e ;
 			System.out.println("IF Event Handled");
-			Simulator.setNoofInsts(Simulator.getNoofInsts() - 4);
+			// Simulator.setNoofInsts(Simulator.getNoofInsts() - 4);
 			IF_OF_Latch.setInstruction(event.getValue());
 			// System.out.println(event.g);
 			if(samePC == 0)

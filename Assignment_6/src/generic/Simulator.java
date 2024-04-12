@@ -15,13 +15,14 @@ public class Simulator {
 	static int noOfInstructions;
 	static int data;
 	static EventQueue eventQueue;
-	
+	// static int cycles;
+	int cycleCount;
 	public static void setupSimulation(String assemblyProgramFile, Processor p)
 	{
 		Simulator.processor = p;
 		loadProgram(assemblyProgramFile);
 		eventQueue = new EventQueue();
-		
+		// cycles = 0;
 		simulationComplete = false;
 	}
 	
@@ -38,6 +39,8 @@ public class Simulator {
 		 *     x1 = 65535
 		 *     x2 = 65535
 		 */
+		// setCycleCount(0);
+		// cycleCount = 0;
 		int address = 0;
 		try {
 			FileInputStream fileInputStream = new FileInputStream(assemblyProgramFile);
@@ -76,7 +79,12 @@ public class Simulator {
 	public static int getNoofInsts(){
 		return noOfInstructions;
 	}
-
+	public int getCycleCount(){
+		return cycleCount;
+	}
+	public void setCycleCount(int value){
+		cycleCount = value;
+	}
 
 	public static EventQueue getEventQueue(){
 		return eventQueue;
@@ -112,7 +120,7 @@ public class Simulator {
 
 		}
 		Statistics.setNumberOfInstructions(noOfInstructions);
-		Statistics.setNumberOfCycles(cycles);
+		Statistics.setNumberOfCycles(cycles - getNoofInsts() * 4);
 	}
 	
 	public static void setSimulationComplete(boolean value)

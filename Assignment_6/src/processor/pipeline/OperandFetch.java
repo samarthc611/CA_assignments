@@ -149,6 +149,8 @@ public class OperandFetch {
 						instruction = IF_OF_Latch.getInstruction();
 						OF_EX_Latch.setInstruction(instruction);
 						System.out.println("got new INST**");
+						int tmpadd = 4;
+						// Simulator.setCycles(Simulator.getCycles());
 					}
 					// System.out.println(instruction);
 					String instString = Integer.toBinaryString(instruction);
