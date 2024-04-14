@@ -6,23 +6,23 @@ import processor.Processor;
 import processor.pipeline.*;
 
 public class CacheLine{
-    int tag;
+    int Tag;
     int data;
     int offset;
     int counter;
 
     public CacheLine(){
-        this.tag = -1;
+        this.Tag = -1;
         this.data = 0;
         this.offset = -1;
         this.counter = 14;
     }
 
     public void setTag(int value){
-        this.tag = value;
+        this.Tag = value;
     }
     public int getTag() {
-        return this.tag;
+        return this.Tag;
     }
 
     public void setData(int value){
@@ -47,5 +47,8 @@ public class CacheLine{
     }
     public int getCounter(){
         return this.counter;
+    }
+    public void setCounter(int count){
+        this.counter = count;
     }
 }

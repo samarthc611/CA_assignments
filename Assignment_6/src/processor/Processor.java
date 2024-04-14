@@ -39,8 +39,8 @@ public class Processor {
 	
 	public Processor()
 	{
-		L1iCache = new Cache(this, 128);
-		L1dCache = new Cache(this, 1024);
+		L1iCache = new Cache(this, 1024);
+		L1dCache = new Cache(this, 512);
 
 		registerFile = new RegisterFile();
 		mainMemory = new MainMemory();
